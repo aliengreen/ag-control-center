@@ -1,0 +1,52 @@
+@import "../../_variables.scss";
+
+.header-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 30px;
+  
+
+  #logo-img {
+    margin-bottom: -30px;
+    z-index: 1;
+  }
+
+  #header-logo {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999;
+  }
+
+  #header-logo:hover circle {
+    stroke: #999;
+  }
+
+  #header-logo img {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.modal {
+  font-family: $family-secondary;
+  z-index: 1001;
+  .modal-card-head, .modal-card-foot {
+    justify-content: flex-end;
+  }
+
+  button {
+    font-family: $family-secondary;
+  }
+}
+
+@media (max-width: $breakpointMobile) {
+  .header-placeholder {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

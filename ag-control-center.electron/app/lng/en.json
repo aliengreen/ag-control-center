@@ -1,0 +1,23 @@
+{
+    "The access token expired": "The access token expired, You will be redirected to the login screen.",
+    "Sign in with credentials": "Sign in with credentials",
+    "Email": "Email",
+    "Name": "Name",
+    "Action": "Action",
+    "Devices": "Devices",
+    "Password": "Password",
+    "Authorization": "Authorization",
+    "Unauthorized": "Invalid user name or password",
+    "Category List": "Category List",
+    "User List": "User List",
+    "wizard.user.list.description": "List of registered users. This includes all registered users of Alien Green. In this category, you will be able to perform user manipulations, such as: (search, editing, device assignment, archiving, etc.)",
+    "wizard.user.list.subtitle": "List of registered users",
+    "Find a user enter email, phone, name": "Find a user enter email, phone, name",
+    "Search": "Search",
+    "New": "New",
+    "Next": "Next page",
+    "Previous": "Previous",
+    "total": "total",
+    "users.not.found": "No result",
+    "no device": "No Device"
+}

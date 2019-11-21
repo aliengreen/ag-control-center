@@ -1,0 +1,89 @@
+<section class="hero is-primary is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title" data-trn>User List</h1>
+            <h2 class="subtitle" data-trn>wizard.user.list.subtitle</h2>
+        </div>
+    </div>
+</section>
+
+<div class="container is-fluid">
+    <div class="columns">
+        <div class="column"></div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <!-- Main container -->
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="level-item">
+                        <p class="subtitle is-5"><strong data-field-total>000</strong> <span data-trn>total</span></p>
+                    </div>
+                    <div class="level-item">
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input is-rounded search-field" type="text" size="50"
+                                    placeholder="Find a user enter email, phone, name" data-trn>
+                            </p>
+                            <p class="control">
+                                <button class="button is-rounded is-info input-button" data-trn
+                                    data-loading>Search</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right side -->
+                <div class="level-right">
+                    <p class="level-item"><strong>All</strong></p>
+                    <p class="level-item"><a>Published</a></p>
+                    <p class="level-item"><a>Drafts</a></p>
+                    <p class="level-item"><a>Deleted</a></p>
+                    <p class="level-item"><a class="button is-success" data-trn>New</a></p>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="columns is-marginless has-background-light">
+        <div class="column is-1">
+            <label class="checkbox">
+                <input type="checkbox">
+            </label>
+        </div>
+        <div class="column is-3"><strong data-trn>Name</strong></div>
+        <div class="column is-3"><strong data-trn>Email</strong></div>
+        <div class="column is-2"><strong data-trn>Devices</strong></div>
+        <div class="column is-2"><strong data-trn>Action</strong></div>
+    </div>
+
+    <!-- Rows -->
+    <div class="user-list" ref="user-list">
+    </div>
+
+
+    <!-- Pagination -->
+    <div class="columns is-marginless is-paddingless">
+        <div class="column">
+            <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                <div class="select select-pagesize is-rounded">
+                    <select>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                </div>
+                <a class="pagination-previous" title="This is the first page" disabled data-trn>Previous</a>
+                <a class="pagination-next" data-trn disabled>Next</a>
+                <ul class="pagination-list" ref="pagination-list">
+
+                </ul>
+            </nav>
+        </div>
+        <div></div>
+    </div>
+
+</div>

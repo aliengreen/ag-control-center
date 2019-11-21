@@ -1,0 +1,10 @@
+@import '~font-awesome/css/font-awesome.css';
+@import '~dejavu-sans-extra-light/css/dejavu-sans-extra-light.css';
+
+// Import a Web Font
+$family-sans-serif: "DejaVu Sans Extra Light", sans-serif;
+$family-secondary: $family-sans-serif;
+
+/* Mobile variables */
+$breakpointMobile: 600px;
+
