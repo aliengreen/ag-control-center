@@ -1,0 +1,48 @@
+<div class="modal is-clipped">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title" data-trn>User Delete</p>
+            <button class="delete close-button" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+
+            <div class="field">
+                <label class="label">ფაილის სახელი</label>
+                <div class="control">
+
+                    <input class="input" type="text" placeholder="ფაილის სახელი" value=".json" ref="file-name-input"
+                        id="file-name-input">
+                </div>
+                <p class="help">შეიყვანეთ ფაილის დასახელება. როგორც წესი ფაილი შეინახება თქვენი ბროუზერის
+                    <code>Download</code> საქაღალდეში.</p>
+            </div>
+
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox" checked ref="insert-pic-checkbox">
+                    ჩასვი გეგმის ფოტო <code>geojson</code> ფაილში
+                </label>
+                <p class="help">
+                    რადგან <code>geojson</code> ზოგადად ტექსტური ფაილია, ჩასმის დროს გამოიყენება base64 კოდირება ფოტო ფაილისთვის.
+                    გაითვალისწინეთ, რომ <code>geojson</code> ფაილი საგრძნობლად გაიზრდება ზომაში.
+                </p>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" name="export-format" ref="export-radio" checked>
+                        შეინახე <code>geojson</code> ფორმატში
+                    </label>
+                    <p class="help">ეს არის ძირითადი ფაილის ფორმატი, რომელიც გამოიყენება gegma.ge ვებ აპლიკაციაში.</p>
+                </div>
+            </div>
+
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-danger is-rounded" data-click-event="deleteButton" data-trn>Delete</button>
+            <button class="button is-rounded close-button" data-click-event="cancelButton" data-trn>Cancel</button>
+        </footer>
+    </div>
+</div>

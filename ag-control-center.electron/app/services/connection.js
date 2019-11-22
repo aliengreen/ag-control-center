@@ -23,7 +23,7 @@ export class Connection extends Service {
                     reject(res);
                     this.triggerEvent('error', res);
                 } else {
-                    if (response.statusCode != 200) {
+                    if (response.statusCode < 200 || response.statusCode > 300) {
                         reject(response.statusCode);
                         this.triggerEvent('error', response);
                     } else {
@@ -96,6 +96,44 @@ export class Connection extends Service {
 
     }
 
+    getUserByUUID(uuid) {
+        
+        var param = {
+            uuid: uuid
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/user",
+            method: "GET",
+            json: true,
+            qs: param
+        };
+
+        return this.requestServer(options);
+    }
+
+    userModify(operation, uuid) {
+        
+        var param = {
+            uuid: uuid,
+            operation: operation
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/user/modify",
+            method: "POST",
+            json: true,
+            body: param
+        };
+
+        return this.requestServer(options);
+    }
     userDevices(email) {
         
         var param = {

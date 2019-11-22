@@ -13,11 +13,22 @@
     "wizard.user.list.description": "List of registered users. This includes all registered users of Alien Green. In this category, you will be able to perform user manipulations, such as: (search, editing, device assignment, archiving, etc.)",
     "wizard.user.list.subtitle": "List of registered users",
     "Find a user enter email, phone, name": "Find a user enter email, phone, name",
+    "Disabled user can be restored as long as they're not deleted.": "Disabled user can be restored as long as they're not deleted.",
+    "This user data will be kept, but they won't login.": "This user data will be kept, but they won't login.",
+    "msg.user.disabled": "User %{name} has been disabled",
     "Search": "Search",
     "New": "New",
     "Next": "Next page",
     "Previous": "Previous",
     "total": "total",
     "users.not.found": "No result",
-    "no device": "No Device"
+    "no device": "No Device",
+    "Pretend": "Pretend",
+    "More": "More",
+    "Disable": "Disable",
+    "Remove": "Remove",
+    "Delete": "Delete",
+    "Cancel": "Cancel",
+    "User Disable": "User Disable",
+    "User Delete": "User Delete"
 }

@@ -35,6 +35,7 @@ import { Connection } from './services/connection'
 import { LoginController } from './components/login/controller'
 import { Users } from './components/users/users'
 import { Wizard } from './components/wizard/wizard'
+import { Snackbar } from './components/snackbar/snackbar'
 import template from './index.html'
 import enlng from './lng/en.json'
 import kalng from './lng/ka.json'
@@ -56,10 +57,11 @@ class ViewController {
     this._appInfo = {
       title: 'AG Center',
       version: 0.1,
-      app_url: 'https://app-dev.aliengreen.ge'
+      app_url: 'https://app-dev.aliengreen.ge',
+      language: kalng
     }
 
-    this.polyglot = new Polyglot({ phrases: kalng });
+    this.polyglot = new Polyglot({ phrases: this._appInfo.language });
 
     this._isload = false;
 
@@ -83,6 +85,10 @@ class ViewController {
     // Initialize Map JSON service
     this.mapjson = new MapJSON();
 
+
+    // Initialize Snackbar
+    this.snackbar = new Snackbar('snackbar-placeholder');
+
     // Initialize connection service
     this.connection = new Connection({
       events: {
@@ -105,7 +111,8 @@ class ViewController {
       connection: this.connection,
       mapjson: this.mapjson,
       polyglot: this.polyglot,
-      appInfo: this._appInfo
+      appInfo: this._appInfo,
+      snackbar: this.snackbar
     }
 
     // Initialize Header

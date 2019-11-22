@@ -34,10 +34,7 @@ export class Component {
       this.componentElem.innerHTML = template
 
       if (this.polyglot) {
-        const trnElems = this.componentElem.querySelectorAll('[data-trn]')
-        trnElems.forEach((elem) => {
-          this.translateElement(elem);
-        });
+        this.translateComponent();
       }
 
       // Find all refs in component
@@ -45,6 +42,15 @@ export class Component {
       const refElems = this.componentElem.querySelectorAll('[ref]')
       refElems.forEach((elem) => { this.refs[elem.getAttribute('ref')] = elem })
     }
+  }
+
+  /** Translate component */
+  translateComponent() {
+    const trnElems = this.componentElem.querySelectorAll('[data-trn]')
+    trnElems.forEach((elem) => {
+      elem.removeAttribute('data-trn'); /* We don't need enymore translatin attribute */
+      this.translateElement(elem);
+    });
   }
 
   /** Read "event" component parameters, and attach event listeners for each */
@@ -121,6 +127,22 @@ export class Component {
     eventElems.forEach((element) => {
       if (element) {
         element.classList.remove('is-loading');
+      }
+    });
+  }
+
+  /*
+   * Bind callback functions
+   */
+  bindCallbacks() {
+    const eventElems = this.componentElem.querySelectorAll(`[data-bind-clkcb]`)
+    eventElems.forEach((element) => {
+      if (element) {
+        element.addEventListener('click', (e) => {
+          let id = element.getAttribute('data-id');
+          let name = element.getAttribute('data-bind-clkcb');
+          this[name](e, id);
+        });
       }
     });
   }

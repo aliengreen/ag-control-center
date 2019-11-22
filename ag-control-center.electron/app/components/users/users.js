@@ -2,6 +2,8 @@ import './users.scss'
 import { Component } from '../component'
 import View from './users.html'
 import paginate from 'jw-paginate'
+import { UserDisable } from '../modals/user_disable/user_disable';
+import { UserRemove } from '../modals/user_remove/user_remove';
 
 /**
  * User List Component
@@ -13,6 +15,7 @@ export class Users extends Component {
     super(placeholderId, props, View);
 
     if (props.dataset) {
+      this.dataset = props.dataset;
       this.connection = props.dataset.connection;
       this.appInfo = props.dataset.appInfo;
     }
@@ -117,27 +120,46 @@ export class Users extends Component {
         <div class="column is-3"><a href="#">${metaData.name}</a></div>
         <div class="column is-3">${row.email}</div>
         <div class="column is-2">`;
-        
+
         if (devices) {
           for (let i = 0; i < devices.length; i++) {
-            if(devices[i].data) {
-            const services = devices[i].data.services.join('/');
-            const status_online = devices[i].data.offline_notified ? 'is-danger' : 'is-success';
-            html += `<a class="tag ${status_online}" data-trn>${services}</a>`;
+            if (devices[i].data) {
+              const services = devices[i].data.services.join('/');
+              const status_online = devices[i].data.offline_notified ? 'is-danger' : 'is-success';
+              html += `<a class="tag ${status_online}">${services}</a>`;
             } else {
               html += `<span class="tag is-danger">${devices[i].device_uuid}</span>`;
             }
           }
         } else {
-          html += `<span class="tag is-warning" data-trn>${this.polyglot.t('no device')}</span>`;
+          html += `<span class="tag is-warning" data-trn>no device</span>`;
         }
 
         html += `</div> 
         
         <div class="column is-2">
           <div class="action-group">
-            <button class="button is-rounded is-small pretend-button" data-uuid="${row.uuid}">Pretend</button>
-            <button class="button is-rounded is-small block-button">Block</button>
+            <button class="button is-rounded is-small" data-id="${row.uuid}" data-bind-clkcb="userPretendCallback" data-trn>Pretend</button>
+            <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+              <button class="button is-rounded is-small" aria-haspopup="true" aria-controls="dropdown-menu4">
+              <span data-trn>More</span>
+                <span class="icon is-small">
+                  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content">
+                <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userDisableCallback" data-trn>
+                  Disable
+                </a>
+                <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userRemoveCallback" data-trn>
+                  Delete
+                </a>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
         </div>`;
@@ -145,18 +167,9 @@ export class Users extends Component {
         this.refs['user-list'].innerHTML += html;
       });
 
-      const pretendElem = this.componentElem.querySelectorAll(`.pretend-button`)
-      pretendElem.forEach((element) => {
-        element.addEventListener('click', (e) => {
-          let uuid = e.target.getAttribute('data-uuid');
-            this.connection.pretend(uuid).then((res, statusCode) => {
-              console.log(this.appInfo.app_url);
-              window.open(`${this.appInfo.app_url}/pre_login/#${res.access_token}`, `${uuid}`, 'nodeIntegration=no,height=600,width=1200')
-             })
-            
-        });
-      });
 
+      this.bindCallbacks();
+      this.translateComponent();
 
     }).catch((statusCode) => {
 
@@ -225,5 +238,66 @@ export class Users extends Component {
 
   getView() {
     return View;
+  }
+
+
+  /* CALLBACKS */
+  userRemoveCallback(e, id) {
+    
+    if(this.modal) {
+      this.modal = null;
+    }
+
+    this.modal = new UserRemove('modal-placeholder', {
+      dataset: this.dataset,
+      events: {
+        deleteButton: event => {
+          console.log('Delete 2');
+        },
+      }
+    });
+
+    this.modal.showModalPage();
+  }
+
+  userDisableCallback(e, id) {
+
+    if(this.modal) {
+      this.modal = null;
+    }
+
+    this.connection.getUserByUUID(id).then((res, statusCode) => {
+      let user = JSON.parse(res[0].meta);
+      this.modal = new UserDisable('modal-placeholder', {
+        dataset: this.dataset,
+        data: user,
+        events: {
+          disableButton: event => {
+            this.modal.startLoading();
+            this.connection.userModify('disable', id).then((res, statusCode) => {
+              this.modal.stopLoading();
+              this.modal.closeModal();
+              this.dataset.snackbar.show(this.polyglot.t('msg.user.disabled', {name: user.name}));
+            }).catch((statusCode) => {
+              this.modal.stopLoading();
+              console.log(`Can't modify user (${statusCode})`);
+            });
+          },
+        }
+      });
+  
+      this.modal.showModalPage();
+    
+    }).catch((statusCode) => {
+      console.log(`Can't getUserByUUID (${statusCode})`);
+    });
+  }
+
+  userPretendCallback(e, id) {
+    this.connection.pretend(id).then((res, statusCode) => {
+      window.open(`${this.appInfo.app_url}/pre_login/#${res.access_token}`, `${id}`, 'nodeIntegration=no,height=600,width=1200')
+    }).catch((statusCode) => {
+      console.log(`Can't pretend (${statusCode})`);
+    });
   }
 }
