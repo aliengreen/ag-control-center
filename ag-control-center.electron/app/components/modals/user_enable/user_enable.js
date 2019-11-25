@@ -1,16 +1,16 @@
 // import './user_disable.scss'
 import { Component } from '../../component'
-import user_disable from './user_disable.html'
+import user_enable from './user_enable.html'
 
 
 /**
  * User Disable Component
  * @extends Component
  */
-export class UserDisable extends Component {
+export class EnableDisable extends Component {
 
   constructor(placeholderId, props) {
-    super(placeholderId, props, user_disable);
+    super(placeholderId, props, user_enable);
 
     let elements = this.componentElem.querySelectorAll('.close-button');
     elements.forEach( (element) => {

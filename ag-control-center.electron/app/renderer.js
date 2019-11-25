@@ -100,7 +100,7 @@ class ViewController {
               this.connection.setCookie('accessToken', '', -9999999);
               location.reload();
             } else {
-              alert(this.polyglot.t(response.statusMessage));
+              this.snackbar.show(this.polyglot.t(response.statusMessage), 'danger');
             }
           }
         },

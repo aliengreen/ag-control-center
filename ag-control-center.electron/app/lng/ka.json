@@ -16,6 +16,7 @@
     "Disabled user can be restored as long as they're not deleted.": "გამორთული მომხმარებელი შეიძლება იქნეს აღდგენილი იმ შემთხვევაში თუ ის არ არის წაშლილი სისტემიდან.",
     "This user data will be kept, but they won't login.": "მოხმარებლის მონაცემები ხელუხლებელი დარჩება სისტემაში, მაგრამ ის ვერ ისარგებლებს სერვისით.",
     "msg.user.disabled": "მომხმარებელი %{name} გამორთულია",
+    "Short information": "მოკლე ინფორმაცია",
     "Search": "ძებნა",
     "New": "ახალი",
     "Next": "შემდეგი",
@@ -26,9 +27,12 @@
     "Pretend": "მოჩვენება",
     "More": "მეტი",
     "Disable": "გამორთვა",
+    "Enable": "ჩართვა",
     "Remove": "ამოგდება",
     "Delete": "წაშლა",
     "Cancel": "გაუქმება",
     "User Disable": "მომხმარებლის გამორთვა",
-    "User Delete": "მომხმარებლის წაშლა"
+    "User Enable": "მომხმარებლის ჩართვა",
+    "User Delete": "მომხმარებლის წაშლა",
+    "Are you sure you would like to reactivate this user?": "დარწმუნებული ხართ, რომ გსურთ ამ მომხმარებლის ჩართვა?"
 }

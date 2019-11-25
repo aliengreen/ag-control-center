@@ -106,7 +106,7 @@ export class Users extends Component {
 
         let metaData = JSON.parse(row.meta);
         let classNames = '';
-        // console.log(row);
+        console.log(row);
         if (index % 2) {
           classNames = '';
         }
@@ -135,6 +135,15 @@ export class Users extends Component {
           html += `<span class="tag is-warning" data-trn>no device</span>`;
         }
 
+
+        let disenCallbackName = 'userDisableCallback';
+        let disenTitle = 'Disable';
+
+        if(row.type === 'disabled') {
+          disenCallbackName = 'userEnableCallback';
+          disenTitle = 'Enable';
+        }
+
         html += `</div> 
         
         <div class="column is-2">
@@ -151,8 +160,8 @@ export class Users extends Component {
             </div>
             <div class="dropdown-menu" id="dropdown-menu4" role="menu">
               <div class="dropdown-content">
-                <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userDisableCallback" data-trn>
-                  Disable
+                <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="${disenCallbackName}" data-trn>
+                  ${disenTitle}
                 </a>
                 <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userRemoveCallback" data-trn>
                   Delete
@@ -276,11 +285,47 @@ export class Users extends Component {
             this.modal.startLoading();
             this.connection.userModify('disable', id).then((res, statusCode) => {
               this.modal.stopLoading();
-              this.modal.closeModal();
-              this.dataset.snackbar.show(this.polyglot.t('msg.user.disabled', {name: user.name}));
-            }).catch((statusCode) => {
+              this.modal.removeModal();
+              this.dataset.snackbar.show(this.polyglot.t('msg.user.disabled', {name: user.name}), 'success');
+              
+            }).catch((response, statusCode) => {
               this.modal.stopLoading();
-              console.log(`Can't modify user (${statusCode})`);
+              this.modal.removeModal();
+              console.log(`Can't modify user (${response.statusMessage})`);
+            });
+          },
+        }
+      });
+  
+      this.modal.showModalPage();
+    
+    }).catch((statusCode) => {
+      console.log(`Can't getUserByUUID (${statusCode})`);
+    });
+  }
+
+  userEnableCallback(e, id) {
+    if(this.modal) {
+      this.modal = null;
+    }
+
+    this.connection.getUserByUUID(id).then((res, statusCode) => {
+      let user = JSON.parse(res[0].meta);
+      this.modal = new UserDisable('modal-placeholder', {
+        dataset: this.dataset,
+        data: user,
+        events: {
+          disableButton: event => {
+            this.modal.startLoading();
+            this.connection.userModify('disable', id).then((res, statusCode) => {
+              this.modal.stopLoading();
+              this.modal.removeModal();
+              this.dataset.snackbar.show(this.polyglot.t('msg.user.disabled', {name: user.name}), 'success');
+              
+            }).catch((response, statusCode) => {
+              this.modal.stopLoading();
+              this.modal.removeModal();
+              console.log(`Can't modify user (${response.statusMessage})`);
             });
           },
         }

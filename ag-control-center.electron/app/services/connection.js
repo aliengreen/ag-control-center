@@ -24,7 +24,7 @@ export class Connection extends Service {
                     this.triggerEvent('error', res);
                 } else {
                     if (response.statusCode < 200 || response.statusCode > 300) {
-                        reject(response.statusCode);
+                        reject(response, response.statusCode);
                         this.triggerEvent('error', response);
                     } else {
                         if(body.access_token !== undefined && options.url.slice(-6) == '/login') {

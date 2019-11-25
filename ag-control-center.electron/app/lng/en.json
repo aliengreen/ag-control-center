@@ -16,6 +16,7 @@
     "Disabled user can be restored as long as they're not deleted.": "Disabled user can be restored as long as they're not deleted.",
     "This user data will be kept, but they won't login.": "This user data will be kept, but they won't login.",
     "msg.user.disabled": "User %{name} has been disabled",
+    "Short information": "Short information",
     "Search": "Search",
     "New": "New",
     "Next": "Next page",
@@ -26,9 +27,12 @@
     "Pretend": "Pretend",
     "More": "More",
     "Disable": "Disable",
+    "Enable": "Enable",
     "Remove": "Remove",
     "Delete": "Delete",
     "Cancel": "Cancel",
     "User Disable": "User Disable",
-    "User Delete": "User Delete"
+    "User Enable": "User Enable",
+    "User Delete": "User Delete",
+    "Are you sure you would like to reactivate this user?": "Are you sure you would like to reactivate this user?"
 }
