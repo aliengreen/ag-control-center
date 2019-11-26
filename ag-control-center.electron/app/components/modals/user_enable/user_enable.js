@@ -7,7 +7,7 @@ import user_enable from './user_enable.html'
  * User Disable Component
  * @extends Component
  */
-export class EnableDisable extends Component {
+export class UserEnable extends Component {
 
   constructor(placeholderId, props) {
     super(placeholderId, props, user_enable);

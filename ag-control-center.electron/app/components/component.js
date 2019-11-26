@@ -138,11 +138,16 @@ export class Component {
     const eventElems = this.componentElem.querySelectorAll(`[data-bind-clkcb]`)
     eventElems.forEach((element) => {
       if (element) {
-        element.addEventListener('click', (e) => {
-          let id = element.getAttribute('data-id');
-          let name = element.getAttribute('data-bind-clkcb');
-          this[name](e, id);
-        });
+        let isbind = element.getAttribute('data-isbind');
+        if (!isbind) {
+          element.setAttribute('data-isbind', true);
+          element.addEventListener('click', (e) => {
+            let id = element.getAttribute('data-id');
+            let name = element.getAttribute('data-bind-clkcb');
+            this[name](e, id);
+          });
+
+        }
       }
     });
   }

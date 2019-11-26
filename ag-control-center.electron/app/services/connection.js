@@ -73,10 +73,11 @@ export class Connection extends Service {
         return this.requestServer(options);
     }
 
-    userList(search, offset, limit) {
+    userList(search, offset, limit, order, order_by) {
 
         var param = {
-            order: 'asc',
+            order: order,
+            order_by: order_by,
             offset: offset,
             limit: limit,
             search: search

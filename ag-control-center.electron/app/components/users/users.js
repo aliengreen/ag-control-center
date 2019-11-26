@@ -2,7 +2,9 @@ import './users.scss'
 import { Component } from '../component'
 import View from './users.html'
 import paginate from 'jw-paginate'
+import moment from 'moment'
 import { UserDisable } from '../modals/user_disable/user_disable';
+import { UserEnable } from '../modals/user_enable/user_enable';
 import { UserRemove } from '../modals/user_remove/user_remove';
 
 /**
@@ -23,7 +25,11 @@ export class Users extends Component {
     this.search = '';
     this.paginationCurrentPage = 1;
     this.paginationPageSize = 10;
+    this.order = 'asc';
+    this.order_by = '';
     this.loadUsers();
+
+    moment.locale(this.appInfo.locale);
 
     let prevElem = this.getPrevElement();
     prevElem.addEventListener('click', (e) => {
@@ -84,7 +90,7 @@ export class Users extends Component {
     this.refs['user-list'].innerHTML = '';
 
 
-    this.connection.userList(this.search, (this.paginationCurrentPage - 1) * this.paginationPageSize, this.paginationPageSize).then((res, statusCode) => {
+    this.connection.userList(this.search, (this.paginationCurrentPage - 1) * this.paginationPageSize, this.paginationPageSize, this.order, this.order_by).then((res, statusCode) => {
 
       /* Add paginaiton footer */
       this.addPaginationNumbers(res.total, this.paginationCurrentPage, this.paginationPageSize);
@@ -94,7 +100,7 @@ export class Users extends Component {
 
       /* Stop spinning loading animation */
       this.stopLoading();
-
+      
       if (res.rows.length == 0) {
         this.addMessage();
       }
@@ -110,15 +116,14 @@ export class Users extends Component {
         if (index % 2) {
           classNames = '';
         }
+
+        
         index++;
         let html = `<div class="columns is-marginless table-row ${classNames}">
-        <div class="column is-1 is-medium">
-        <label class="checkbox">
-            <input type="checkbox">
-        </label>
-        </div>
         <div class="column is-3"><a href="#">${metaData.name}</a></div>
         <div class="column is-3">${row.email}</div>
+        <div class="column is-1"><a href="#">${row.type === 'disabled' ? 0 : 1}</a></div>
+        <div class="column is-1">${moment(row.created).format('D MMM YY hh:mm A')}</a></div>
         <div class="column is-2">`;
 
         if (devices) {
@@ -139,7 +144,7 @@ export class Users extends Component {
         let disenCallbackName = 'userDisableCallback';
         let disenTitle = 'Disable';
 
-        if(row.type === 'disabled') {
+        if (row.type === 'disabled') {
           disenCallbackName = 'userEnableCallback';
           disenTitle = 'Enable';
         }
@@ -249,29 +254,34 @@ export class Users extends Component {
     return View;
   }
 
+  /** Reload data */
+  reload() {
+    this.loadUsers();
+  }
 
   /* CALLBACKS */
   userRemoveCallback(e, id) {
-    
-    if(this.modal) {
-      this.modal = null;
-    }
 
-    this.modal = new UserRemove('modal-placeholder', {
-      dataset: this.dataset,
-      events: {
-        deleteButton: event => {
-          console.log('Delete 2');
-        },
-      }
-    });
+    console.log('DIS DIS');
+    // if (this.modal) {
+    //   this.modal = null;
+    // }
 
-    this.modal.showModalPage();
+    // this.modal = new UserRemove('modal-placeholder', {
+    //   dataset: this.dataset,
+    //   events: {
+    //     deleteButton: event => {
+    //       console.log('Delete 2');
+    //     },
+    //   }
+    // });
+
+    // this.modal.showModalPage();
   }
 
   userDisableCallback(e, id) {
 
-    if(this.modal) {
+    if (this.modal) {
       this.modal = null;
     }
 
@@ -286,8 +296,8 @@ export class Users extends Component {
             this.connection.userModify('disable', id).then((res, statusCode) => {
               this.modal.stopLoading();
               this.modal.removeModal();
-              this.dataset.snackbar.show(this.polyglot.t('msg.user.disabled', {name: user.name}), 'success');
-              
+              this.dataset.snackbar.show(this.polyglot.t('msg.user.disabled', { name: user.name }), 'success');
+              this.reload();
             }).catch((response, statusCode) => {
               this.modal.stopLoading();
               this.modal.removeModal();
@@ -296,32 +306,32 @@ export class Users extends Component {
           },
         }
       });
-  
+
       this.modal.showModalPage();
-    
+
     }).catch((statusCode) => {
       console.log(`Can't getUserByUUID (${statusCode})`);
     });
   }
 
   userEnableCallback(e, id) {
-    if(this.modal) {
+    if (this.modal) {
       this.modal = null;
     }
 
     this.connection.getUserByUUID(id).then((res, statusCode) => {
       let user = JSON.parse(res[0].meta);
-      this.modal = new UserDisable('modal-placeholder', {
+      this.modal = new UserEnable('modal-placeholder', {
         dataset: this.dataset,
         data: user,
         events: {
-          disableButton: event => {
+          enableButton: event => {
             this.modal.startLoading();
-            this.connection.userModify('disable', id).then((res, statusCode) => {
+            this.connection.userModify('enable', id).then((res, statusCode) => {
               this.modal.stopLoading();
               this.modal.removeModal();
-              this.dataset.snackbar.show(this.polyglot.t('msg.user.disabled', {name: user.name}), 'success');
-              
+              this.dataset.snackbar.show(this.polyglot.t('msg.user.enabled', { name: user.name }), 'success');
+              this.reload();
             }).catch((response, statusCode) => {
               this.modal.stopLoading();
               this.modal.removeModal();
@@ -330,9 +340,9 @@ export class Users extends Component {
           },
         }
       });
-  
+
       this.modal.showModalPage();
-    
+
     }).catch((statusCode) => {
       console.log(`Can't getUserByUUID (${statusCode})`);
     });
@@ -344,5 +354,47 @@ export class Users extends Component {
     }).catch((statusCode) => {
       console.log(`Can't pretend (${statusCode})`);
     });
+  }
+
+  setupOrder(e, id) {
+    let sortClassName = '';
+    if(this.order === 'asc') {
+      this.order = 'desc';
+      sortClassName = 'fa-sort-down';
+    } else {
+      this.order = 'asc';
+      sortClassName = 'fa-sort-up';
+    }
+    
+    /* Query icon */
+    let elements = this.componentElem.querySelectorAll(`.sort-table-header i`);
+    elements.forEach((element) => {
+        element.classList.remove('fa-sort-up');
+        element.classList.remove('fa-sort-down');
+    });
+
+    elements = e.target.parentElement.querySelectorAll(`i`);
+    elements.forEach((element) => {
+        element.classList.add(sortClassName);
+    });
+
+  }
+
+  sortByName(e, id) {
+    this.setupOrder(e, id);
+    this.order_by = 'name';
+    this.reload();
+  }
+
+  sortByEmail(e, id) {
+    this.setupOrder(e, id);
+    this.order_by = 'email';
+    this.reload();
+  }
+
+  sortByCreated(e, id) {
+    this.setupOrder(e, id);
+    this.order_by = 'created';
+    this.reload();
   }
 }

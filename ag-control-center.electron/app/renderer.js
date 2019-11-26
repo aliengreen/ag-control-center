@@ -37,11 +37,13 @@ import { Users } from './components/users/users'
 import { Wizard } from './components/wizard/wizard'
 import { Snackbar } from './components/snackbar/snackbar'
 import template from './index.html'
-import enlng from './lng/en.json'
-import kalng from './lng/ka.json'
+
 import Polyglot from 'node-polyglot'
 
-
+/* Language and locles imports should be here */
+import enlng from './lng/en.json'
+import kalng from './lng/ka.json'
+import 'moment/locale/ka'; /* Georgian locale file for momentjs */
 
 /* check if we are in electron framework */
 let electron = window && window.process && window.process.type;
@@ -58,7 +60,8 @@ class ViewController {
       title: 'AG Center',
       version: 0.1,
       app_url: 'https://app-dev.aliengreen.ge',
-      language: kalng
+      language: kalng,
+      locale: 'ka'
     }
 
     this.polyglot = new Polyglot({ phrases: this._appInfo.language });
