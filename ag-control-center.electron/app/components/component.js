@@ -12,8 +12,10 @@ export class Component {
   constructor(placeholderId, props = {}, template) {
 
     if (props.dataset) {
-      this._dataset = props.dataset;
+      this.dataset = props.dataset;
       this.polyglot = props.dataset.polyglot;
+      this.connection = props.dataset.connection;
+      this.appInfo = props.dataset.appInfo;
     }
 
     this.setupTemplate(placeholderId, template);
@@ -90,6 +92,7 @@ export class Component {
         element.tagName === 'STRONG' ||
         element.tagName === 'A' ||
         element.tagName === 'SPAN' ||
+        element.tagName === 'LABEL' ||
         element.tagName.startsWith("H")) {
         element.innerText = this.polyglot.t(element.innerHTML.trim());
       }
@@ -190,7 +193,8 @@ export class Component {
 
     if (element) {
       if (element.tagName === 'INPUT' ||
-        element.tagName === 'TEXTAREA') {
+        element.tagName === 'TEXTAREA' ||
+        element.tagName === 'SELECT' ) {
         return element.value;
       } else if (element.tagName === 'IMG') {
         return element.src; /* Do we really need this ?, I don't know */
@@ -205,7 +209,8 @@ export class Component {
     eventElems.forEach((element) => {
       if (element) {
         if (element.tagName === 'INPUT' ||
-          element.tagName === 'TEXTAREA') {
+          element.tagName === 'TEXTAREA' ||
+          element.tagName === 'SELECT') {
           element.value = content;
         } else if (element.tagName === 'IMG') {
           element.src = content;

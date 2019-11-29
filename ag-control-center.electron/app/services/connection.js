@@ -13,7 +13,7 @@ export class Connection extends Service {
 
     requestServer(options) {
         return new Promise((resolve, reject) => {
-
+            console.log(this.accessToken);
             request(options, (error, response, body) => {
                 if (response === undefined && error !== undefined) {
                     let res = {
@@ -97,6 +97,27 @@ export class Connection extends Service {
 
     }
 
+
+    userSessions(uuid) {
+
+        var param = {
+            uuid: uuid
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/user/sessions",
+            method: "GET",
+            json: true,
+            qs: param
+        };
+
+        return this.requestServer(options);
+
+    }
+
     getUserByUUID(uuid) {
         
         var param = {
@@ -135,6 +156,22 @@ export class Connection extends Service {
 
         return this.requestServer(options);
     }
+
+    userUpdate(user) {
+        
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/user/update",
+            method: "POST",
+            json: true,
+            body: user
+        };
+
+        return this.requestServer(options);
+    }
+
     userDevices(email) {
         
         var param = {

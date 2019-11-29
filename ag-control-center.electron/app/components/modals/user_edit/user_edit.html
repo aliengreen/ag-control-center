@@ -1,0 +1,75 @@
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <span class="modal-card-title">
+                <span data-trn>User Edit</span> -
+                <span class="subtitle"><strong data-field-name>&nbsp;</strong></span>
+            </span>
+            <button class="delete close-button" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+
+            <!-- Name -->
+            <div class="field">
+                <label class="label" data-trn>Name</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Full Name" id="user-name" data-field-user-name
+                        data-trn>
+                    <p class="help" data-trn>Full name of the user. Do not confuse this with the device name!</p>
+                </div>
+            </div>
+
+            <!-- Email/Phone -->
+            <div class="field">
+                <label class="label" data-trn>Email/Phone</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Email or Phone" id="user-emailphone"
+                        data-field-user-emailphone data-trn>
+                    <p class="help" data-trn>User email address or phone number. Phone number should require a country
+                        code. e.g (for Georgia +995)
+                    </p>
+                </div>
+            </div>
+
+            <!-- Access Type -->
+            <div class="field">
+                <label class="label" data-trn>Access Type</label>
+                <div class="control">
+                    <div class="select">
+                        <select class="select-access-type" id="user-accesstype" data-field-user-accesstype>
+                            <option value="user">User</option>
+                            <option value="mostat_admin">Mostat Admin</option>
+                        </select>
+                    </div>
+                    <p class="help" data-trn>This is a user access type. There are currently two types of users -
+                        Regular user (user) and administrator (mostat_admin)
+                    </p>
+                </div>
+            </div>
+
+            <!-- New Password -->
+            <div class="field">
+                <label class="label" data-trn>New Password</label>
+                <div class="field has-addons">
+
+                    <p class="control">
+                        <input class="input" type="text" size="40" placeholder="New Password" id="user-newpassword"
+                            data-field-user-newpassword data-trn>
+                    </p>
+                    <p class="control">
+                        <button class="button is-rounded is-info generate-button" data-trn>Generate</button>
+                    </p>
+                </div>
+                <p class="help" data-trn>User password must be at least 8 characters long and unique. Note that longer is better; have both uppercase and lowercase letters; also have digits and/or punctuation</p>
+            </div>
+
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success is-rounded" data-loading data-click-event="saveButton"
+                data-trn>Save</button>
+            <button class="button is-rounded close-button" data-loading data-click-event="cancelButton"
+                data-trn>Cancel</button>
+        </footer>
+    </div>
+</div>

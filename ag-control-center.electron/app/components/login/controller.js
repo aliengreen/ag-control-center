@@ -43,8 +43,7 @@ export class LoginController extends Component {
         this.login.closeModal();
         this.triggerEvent('login', res);
       }).catch((statusCode) => {
-        this.stopLoading();
-        // this.login.clearForm();
+        alert(this.polyglot.t('Connection error')); 
         console.log(`Can't get access token, check email and password (${statusCode})`);
       });
     }

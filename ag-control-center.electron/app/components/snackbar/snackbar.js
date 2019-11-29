@@ -14,13 +14,16 @@ export class Snackbar extends Component {
 
   }
 
-  show(message, type) {
+  show(message, type, delay) {
     const element = document.getElementById('snackbar');
     element.classList.add('show');
     element.classList.add(`is-${type}`);
     const elementBody = this.getElementByClassName('.message-body');
     elementBody.innerHTML = message;
-    setTimeout(function(){element.classList.remove('show'); element.classList.remove(`is-${type}`); }, 3000);
+    if(delay === undefined) {
+      delay = 3000;
+    }
+    setTimeout(function(){element.classList.remove('show'); element.classList.remove(`is-${type}`); }, delay);
   }
 
 }

@@ -1,94 +1,40 @@
 import './users.scss'
-import { Component } from '../component'
+import { ComponentTable } from '../componentTable'
 import View from './users.html'
-import paginate from 'jw-paginate'
 import moment from 'moment'
 import { UserDisable } from '../modals/user_disable/user_disable';
 import { UserEnable } from '../modals/user_enable/user_enable';
+import { UserEdit } from '../modals/user_edit/user_edit';
 import { UserRemove } from '../modals/user_remove/user_remove';
 
 /**
  * User List Component
  * @extends Component
  */
-export class Users extends Component {
+export class Users extends ComponentTable {
 
   constructor(placeholderId, props) {
     super(placeholderId, props, View);
 
-    if (props.dataset) {
-      this.dataset = props.dataset;
-      this.connection = props.dataset.connection;
-      this.appInfo = props.dataset.appInfo;
-    }
-
-    this.search = '';
-    this.paginationCurrentPage = 1;
-    this.paginationPageSize = 10;
-    this.order = 'asc';
-    this.order_by = '';
-    this.loadUsers();
+    this.loadData();
 
     moment.locale(this.appInfo.locale);
 
-    let prevElem = this.getPrevElement();
-    prevElem.addEventListener('click', (e) => {
-      if (!e.target.hasAttribute('disabled')) {
-        this.paginationCurrentPage--;
-        this.loadUsers();
-      }
-    });
+    // this.connection.userSessions('85330d36-0215-412d-bd93-a39c4596f5e6').then((res, statusCode) => {
+    //   console.log(res);
+    // });
 
-    let nextElem = this.getNextElement();
-    nextElem.addEventListener('click', (e) => {
-      if (!e.target.hasAttribute('disabled')) {
-        this.paginationCurrentPage++;
-        this.loadUsers();
-      }
-    });
-
-    let selElem = this.getElementByClassName('.select-pagesize');
-    selElem.addEventListener('change', (e) => {
-      this.paginationPageSize = e.target.value;
-      this.loadUsers();
-    });
-
-    let searchElem = this.getElementByClassName('.search-field');
-    let inputElem = this.getElementByClassName('.input-button');
-    inputElem.addEventListener('click', (e) => {
-      this.search = searchElem.value;
-      this.paginationCurrentPage = 1;
-      this.loadUsers();
-    });
-
-    searchElem.addEventListener('keyup', (e) => {
-      if (e.keyCode == 13) {
-        // Cancel the default action, if needed
-        e.preventDefault();
-        this.search = searchElem.value;
-        this.paginationCurrentPage = 1;
-        this.loadUsers();
-      }
-    });
   }
 
-  getPrevElement() {
-    return this.getElementByClassName('.pagination-previous');
-  }
-
-  getNextElement() {
-    return this.getElementByClassName('.pagination-next');
-  }
 
   /* Load users */
-  loadUsers() {
+  loadData() {
 
     /* Start spinning loading animation */
     this.startLoading();
 
     /* Clear HTML table */
     this.refs['user-list'].innerHTML = '';
-
 
     this.connection.userList(this.search, (this.paginationCurrentPage - 1) * this.paginationPageSize, this.paginationPageSize, this.order, this.order_by).then((res, statusCode) => {
 
@@ -100,7 +46,7 @@ export class Users extends Component {
 
       /* Stop spinning loading animation */
       this.stopLoading();
-      
+
       if (res.rows.length == 0) {
         this.addMessage();
       }
@@ -117,14 +63,18 @@ export class Users extends Component {
           classNames = '';
         }
 
-        
+
         index++;
         let html = `<div class="columns is-marginless table-row ${classNames}">
-        <div class="column is-3"><a href="#">${metaData.name}</a></div>
-        <div class="column is-3">${row.email}</div>
-        <div class="column is-1"><a href="#">${row.type === 'disabled' ? 0 : 1}</a></div>
-        <div class="column is-1">${moment(row.created).format('D MMM YY hh:mm A')}</a></div>
-        <div class="column is-2">`;
+        <div class="column is-3"><a href="#" data-id="${row.uuid}" data-bind-clkcb="userEditCallback">${metaData.name}</a></div>
+        <div class="column is-3">
+            <p>${row.email}</p>
+            <strong class="is-size-7 has-text-grey-light" data-trn>
+                ${row.type === 'disabled' ? 'Inactive' : 'Active'}            
+            </strong><span class="is-size-7 has-text-grey-light"> / </span><strong class="is-size-7 has-text-grey-light is-small">${row.type}</strong>
+        </div>
+        <div class="column is-2"><p class="is-size-7">${moment(row.created).format('D MMM YY h:mm A')}</p></div>
+        <div class="column is-2">`
 
         if (devices) {
           for (let i = 0; i < devices.length; i++) {
@@ -193,70 +143,9 @@ export class Users extends Component {
     });
   }
 
-  addPaginationNumbers(total, pageNumber, pageSize) {
-    this.refs['pagination-list'].innerHTML = '';
-    let pg = paginate(total, pageNumber, pageSize, 10);
-
-    let prevElement = this.getPrevElement();
-    let nextElement = this.getNextElement();
-
-    if (total > 0) {
-      prevElement.removeAttribute('disabled');
-      nextElement.removeAttribute('disabled');
-    }
-
-    if (pageNumber == 1) {
-      prevElement.setAttribute('disabled', '');
-    }
-
-    if (pageNumber == this.totalPages) {
-      prevElement.setAttribute('disabled', '');
-    }
-
-    for (let i = pg.startPage; i <= pg.endPage; i++) {
-      let paginationNum = '';
-      if (pg.currentPage == i) {
-        paginationNum = `<li>
-        <a class="pagination-link is-current page-button" aria-label="Page ${i}" data-click-event="page">${i}</a>
-        </li>`;
-      } else {
-        paginationNum = `<li>
-        <a class="pagination-link page-button" aria-label="Page ${i}" data-click-event="page">${i}</a>
-        </li>`;
-      }
-      this.refs['pagination-list'].innerHTML += paginationNum;
-    }
-
-    const eventElems = this.componentElem.querySelectorAll('.page-button')
-    eventElems.forEach((elem) => {
-      elem.addEventListener('click', (e) => {
-        let pageNum = parseInt(e.target.innerText.trim());
-        if (pageNum != pg.currentPage) {
-          this.paginationCurrentPage = pageNum;
-          this.loadUsers();
-        }
-      });
-    });
-
-  }
-
-  addMessage() {
-    let msg = `<div class="columns is-desktop is-vcentered" style="height: 100%">
-    <div class="column has-text-centered">
-    <h1 class="subtitle">${this.polyglot.t('users.not.found')}</h1>
-    </div>
-    </div>`;
-
-    this.refs['user-list'].innerHTML = msg;
-  }
 
   getView() {
     return View;
-  }
-
-  /** Reload data */
-  reload() {
-    this.loadUsers();
   }
 
   /* CALLBACKS */
@@ -287,6 +176,10 @@ export class Users extends Component {
 
     this.connection.getUserByUUID(id).then((res, statusCode) => {
       let user = JSON.parse(res[0].meta);
+      if (res[0].type === 'mostat_admin') {
+        this.dataset.snackbar.show(this.polyglot.t('msg.user.cannotdisable', { name: user.name }), 'warning', 3000);
+        return;
+      }
       this.modal = new UserDisable('modal-placeholder', {
         dataset: this.dataset,
         data: user,
@@ -356,26 +249,69 @@ export class Users extends Component {
     });
   }
 
+  userEditCallback(e, id) {
+
+    if (this.modal) {
+      this.modal = null;
+    }
+
+    this.connection.getUserByUUID(id).then((res, statusCode) => {
+      let user = res[0];
+      this.modal = new UserEdit('modal-placeholder', {
+        dataset: this.dataset,
+        data: user,
+        events: {
+          saveButton: event => {
+            let user = this.modal.validateForm();
+            if (user) {
+  
+              console.log(user);
+              this.modal.startLoading();
+              this.connection.userUpdate(user).then((res, statusCode) => {
+                this.modal.stopLoading();
+                this.modal.removeModal();
+                this.dataset.snackbar.show(this.polyglot.t('msg.user.updated', { name: user.email }), 'success');
+                this.reload();
+              }).catch((response, statusCode) => {
+                this.modal.stopLoading();
+                this.modal.removeModal();
+                console.log(`Can't modify user (${response.statusMessage})`);
+              });
+
+              this.modal.removeModal();
+            }
+          },
+        }
+      });
+
+      this.modal.showModalPage();
+
+    }).catch((statusCode) => {
+      console.log(`Can't getUserByUUID (${statusCode})`);
+    });
+  }
+
   setupOrder(e, id) {
+
     let sortClassName = '';
-    if(this.order === 'asc') {
+    if (this.order === 'asc') {
       this.order = 'desc';
       sortClassName = 'fa-sort-down';
     } else {
       this.order = 'asc';
       sortClassName = 'fa-sort-up';
     }
-    
+
     /* Query icon */
     let elements = this.componentElem.querySelectorAll(`.sort-table-header i`);
     elements.forEach((element) => {
-        element.classList.remove('fa-sort-up');
-        element.classList.remove('fa-sort-down');
+      element.classList.remove('fa-sort-up');
+      element.classList.remove('fa-sort-down');
     });
 
     elements = e.target.parentElement.querySelectorAll(`i`);
     elements.forEach((element) => {
-        element.classList.add(sortClassName);
+      element.classList.add(sortClassName);
     });
 
   }
