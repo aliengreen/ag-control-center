@@ -1,4 +1,4 @@
-// import './user_disable.scss'
+
 import { Component } from '../../component'
 import user_reset_password from './user_reset_password.html'
 
@@ -27,7 +27,6 @@ export class UserResetPassword extends Component {
 
     let element = this.getElementByClassName('.generate-button');
     element.addEventListener('click', (e) => {
-      // this.setValue('user-newpassword', 'JimSheri');
       this.setValue('user-newpassword', this.generatePassword());
     });
 
@@ -51,23 +50,9 @@ export class UserResetPassword extends Component {
 
   /** Generate password  */
   generatePassword() {
-    let names = ['miliardi',
-      'veberTela',
-      'mxedari',
-      'vinari',
-      'kukuSa',
-      'edemi',
-      'fuCqi',
-      'fizika',
-      'pele',
-      'garinCa',
-      'niutoni',
-      'sevdagul',
-      'femistokle',
-      'armatura',
-      'kekluca',
-      'neqtari',
-      'lamazi',
+    let names = ['miliardi', 'veberTela', 'mxedari', 'vinari', 'kukuSa',
+      'edemi', 'fuCqi', 'fizika', 'pele', 'garinCa', 'niutoni', 'sevdagul',
+      'femistokle', 'armatura', 'kekluca', 'neqtari', 'lamazi',
       'vargiso',
       'moqeife',
       'tashti',

@@ -122,6 +122,7 @@ export class Users extends ComponentTable {
                 <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userResetPasswordCallback" data-trn>
                 Reset Password
                 </a>
+                <hr class="dropdown-divider">
                 <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userRemoveCallback" data-trn>
                   Delete
                 </a>
@@ -155,21 +156,41 @@ export class Users extends ComponentTable {
   /* CALLBACKS */
   userRemoveCallback(e, id) {
 
-    console.log('DIS DIS');
-    // if (this.modal) {
-    //   this.modal = null;
-    // }
+    if (this.modal) {
+      this.modal = null;
+    }
 
-    // this.modal = new UserRemove('modal-placeholder', {
-    //   dataset: this.dataset,
-    //   events: {
-    //     deleteButton: event => {
-    //       console.log('Delete 2');
-    //     },
-    //   }
-    // });
+    this.connection.getUserByUUID(id).then((res, statusCode) => {
+      let user = res[0];
+      this.modal = new UserRemove('modal-placeholder', {
+        dataset: this.dataset,
+        data: user,
+        events: {
+          deleteButton: event => {
 
-    // this.modal.showModalPage();
+            let form = this.modal.validateForm();
+            if (form) {
+              this.modal.startLoading();
+              this.connection.userDelete(form, id).then((res, statusCode) => {
+                this.modal.stopLoading();
+                this.modal.removeModal();
+                this.dataset.snackbar.show(this.polyglot.t('msg.user.delete', { name: user.email }), 'success');
+                this.reload();
+              }).catch((response, statusCode) => {
+                this.modal.stopLoading();
+                this.modal.removeModal();
+                console.log(`Can't modify user (${response.statusMessage})`);
+              });
+            }
+          },
+        }
+      });
+
+      this.modal.showModalPage();
+
+    }).catch((statusCode) => {
+      console.log(`Can't getUserByUUID (${statusCode})`);
+    });
   }
 
   userDisableCallback(e, id) {
@@ -232,6 +253,7 @@ export class Users extends ComponentTable {
             }).catch((response, statusCode) => {
               this.modal.stopLoading();
               this.modal.removeModal();
+              
               console.log(`Can't modify user (${response.statusMessage})`);
             });
           },

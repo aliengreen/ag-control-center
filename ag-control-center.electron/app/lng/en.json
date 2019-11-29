@@ -20,6 +20,7 @@
     "msg.user.updated": "User %{name} has been updated",
     "msg.user.passwordreset": "Password updated for user %{name}",
     "msg.user.cannotdisable": "User %{name} can't be disabled, Because it has admin privilege",
+    "msg.user.delete": "User %{name} has been DELETED",
     "msg.user.error.usernamecannotbeempty": "User name can't be empty",
     "msg.user.error.emailphonecannotbeempty": "Email/Phone can't be empty",
     "msg.user.warn.mostatadminselected": "Are you sure you want to set mostat_admin access to the %{name} user ?",
@@ -61,5 +62,9 @@
     "Full name of the user. Do not confuse this with the device name!": "Full name of the user. Do not confuse this with the device name!",
     "User email address or phone number. Phone number should require a country code. e.g (for Georgia +995)": "User email address or phone number. Phone number should require a country code. e.g (for Georgia +995)",
     "This is a user access type. There are currently two types of users - Regular user (user) and administrator (mostat_admin)": "This is a user access type. There are currently two types of users - Regular user (user) and administrator (mostat_admin)",
-    "User password must be at least 8 characters long and unique. Note that longer is better; have both uppercase and lowercase letters; also have digits and/or punctuation": "User password must be at least 8 characters long and unique. Note, that longer is better; have both uppercase and lowercase letters; also have digits and/or punctuation"
+    "User password must be at least 8 characters long and unique. Note that longer is better; have both uppercase and lowercase letters; also have digits and/or punctuation": "User password must be at least 8 characters long and unique. Note, that longer is better; have both uppercase and lowercase letters; also have digits and/or punctuation",
+    "text.user.deleteuserandkeepdevices": "Delete user and keep all devices associated with this user",
+    "text.user.deleteuserandkeepdevices.help": "Only the user will be deleted and all data associated with it will remain intact.",
+    "text.user.deleteuseranddeletedevices": "Delete user and delete all devices associated with this user",
+    "text.user.deleteuseranddeletedevices.help": "Be Careful ! The user will be removed from system and all associated data with this user"
 }

@@ -172,7 +172,26 @@ export class Connection extends Service {
         return this.requestServer(options);
     }
 
+    userDelete(params, uuid) {
 
+        let param = {
+            uuid: uuid,
+            action: params.action,
+        }
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/user/delete",
+            method: "POST",
+            json: true,
+            body: param
+        };
+
+        return this.requestServer(options);
+    }
+    
     userUpdatePassword(passwrod, uuid) {
 
         let param = {
