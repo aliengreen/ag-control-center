@@ -116,6 +116,9 @@ export class Users extends ComponentTable {
             </div>
             <div class="dropdown-menu" id="dropdown-menu4" role="menu">
               <div class="dropdown-content">
+                <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userEditCallback" data-trn>
+                Edit
+                </a>
                 <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="${disenCallbackName}" data-trn>
                   ${disenTitle}
                 </a>
@@ -269,7 +272,7 @@ export class Users extends ComponentTable {
 
   userPretendCallback(e, id) {
     this.connection.pretend(id).then((res, statusCode) => {
-      window.open(`${this.appInfo.app_url}/pre_login/#${res.access_token}`, `${id}`, 'nodeIntegration=no,height=600,width=1200')
+      window.open(`${this.appInfo.app_url}/pre_login/#${res.access_token}`, `${id}`, 'nodeIntegration=no,height=600,width=1480')
     }).catch((statusCode) => {
       console.log(`Can't pretend (${statusCode})`);
     });

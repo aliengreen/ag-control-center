@@ -9,6 +9,10 @@ export class Connection extends Service {
         super(props);
         this.host = "https://admin-dev.aliengreen.ge";
         this.accessToken = null;
+        if(props.host) {
+            this.host = props.host;
+        }
+
     }
 
     requestServer(options) {
