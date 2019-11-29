@@ -5,6 +5,7 @@ import moment from 'moment'
 import { UserDisable } from '../modals/user_disable/user_disable';
 import { UserEnable } from '../modals/user_enable/user_enable';
 import { UserEdit } from '../modals/user_edit/user_edit';
+import { UserResetPassword } from '../modals/user_reset_password/user_reset_password';
 import { UserRemove } from '../modals/user_remove/user_remove';
 
 /**
@@ -117,6 +118,9 @@ export class Users extends ComponentTable {
               <div class="dropdown-content">
                 <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="${disenCallbackName}" data-trn>
                   ${disenTitle}
+                </a>
+                <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userResetPasswordCallback" data-trn>
+                Reset Password
                 </a>
                 <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userRemoveCallback" data-trn>
                   Delete
@@ -264,7 +268,7 @@ export class Users extends ComponentTable {
           saveButton: event => {
             let user = this.modal.validateForm();
             if (user) {
-  
+
               console.log(user);
               this.modal.startLoading();
               this.connection.userUpdate(user).then((res, statusCode) => {
@@ -290,6 +294,50 @@ export class Users extends ComponentTable {
       console.log(`Can't getUserByUUID (${statusCode})`);
     });
   }
+
+
+  userResetPasswordCallback(e, id) {
+
+    if (this.modal) {
+      this.modal = null;
+    }
+
+    this.connection.getUserByUUID(id).then((res, statusCode) => {
+      let user = res[0];
+      this.modal = new UserResetPassword('modal-placeholder', {
+        dataset: this.dataset,
+        data: user,
+        events: {
+          saveButton: event => {
+            let password = this.modal.validateForm();
+            if (password) {
+
+              console.log(password);
+              this.modal.startLoading();
+              this.connection.userUpdatePassword(password, id).then((res, statusCode) => {
+                this.modal.stopLoading();
+                this.modal.removeModal();
+                this.dataset.snackbar.show(this.polyglot.t('msg.user.passwordreset', { name: user.email }), 'success');
+                this.reload();
+              }).catch((response, statusCode) => {
+                this.modal.stopLoading();
+                this.modal.removeModal();
+                console.log(`Can't modify user (${response.statusMessage})`);
+              });
+
+              this.modal.removeModal();
+            }
+          },
+        }
+      });
+
+      this.modal.showModalPage();
+
+    }).catch((statusCode) => {
+      console.log(`Can't getUserByUUID (${statusCode})`);
+    });
+  }
+
 
   setupOrder(e, id) {
 

@@ -27,7 +27,7 @@ export class Connection extends Service {
                         reject(response, response.statusCode);
                         this.triggerEvent('error', response);
                     } else {
-                        if(body.access_token !== undefined && options.url.slice(-6) == '/login') {
+                        if (body.access_token !== undefined && options.url.slice(-6) == '/login') {
                             this.accessToken = body.access_token;
                             this.setCookie('accessToken', this.accessToken, 3);
                         }
@@ -119,7 +119,7 @@ export class Connection extends Service {
     }
 
     getUserByUUID(uuid) {
-        
+
         var param = {
             uuid: uuid
         };
@@ -138,7 +138,7 @@ export class Connection extends Service {
     }
 
     userModify(operation, uuid) {
-        
+
         var param = {
             uuid: uuid,
             operation: operation
@@ -158,7 +158,7 @@ export class Connection extends Service {
     }
 
     userUpdate(user) {
-        
+
         let options = {
             headers: {
                 'Authorization': "Bearer " + this.accessToken
@@ -172,8 +172,29 @@ export class Connection extends Service {
         return this.requestServer(options);
     }
 
+
+    userUpdatePassword(passwrod, uuid) {
+
+        let param = {
+            uuid: uuid,
+            passwrod: passwrod.newpassword,
+        }
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/user/resetpwd",
+            method: "POST",
+            json: true,
+            body: param
+        };
+
+        return this.requestServer(options);
+    }
+
     userDevices(email) {
-        
+
         var param = {
             email: email
         };
