@@ -71,7 +71,7 @@ export class Users extends ComponentTable {
         <div class="column is-3">
             <p>${row.email}</p>
             <strong class="is-size-7 has-text-grey-light" data-trn>
-                ${row.type === 'disabled' ? 'Inactive' : 'Active'}            
+                ${row.status === 0 ? 'Inactive' : 'Active'}            
             </strong><span class="is-size-7 has-text-grey-light"> / </span><strong class="is-size-7 has-text-grey-light is-small">${row.type}</strong>
         </div>
         <div class="column is-2"><p class="is-size-7">${moment(row.created).format('D MMM YY h:mm A')}</p></div>
@@ -95,7 +95,7 @@ export class Users extends ComponentTable {
         let disenCallbackName = 'userDisableCallback';
         let disenTitle = 'Disable';
 
-        if (row.type === 'disabled') {
+        if (row.status === 0) {
           disenCallbackName = 'userEnableCallback';
           disenTitle = 'Enable';
         }
@@ -204,10 +204,7 @@ export class Users extends ComponentTable {
 
     this.connection.getUserByUUID(id).then((res, statusCode) => {
       let user = JSON.parse(res[0].meta);
-      if (res[0].type === 'mostat_admin') {
-        this.dataset.snackbar.show(this.polyglot.t('msg.user.cannotdisable', { name: user.name }), 'warning', 3000);
-        return;
-      }
+
       this.modal = new UserDisable('modal-placeholder', {
         dataset: this.dataset,
         data: user,
