@@ -2,6 +2,7 @@ import './users.scss'
 import { ComponentTable } from '../componentTable'
 import View from './users.html'
 import moment from 'moment'
+import { DetailsPanel } from '../details-panel/details-panel';
 import { UserDisable } from '../modals/user_disable/user_disable';
 import { UserEnable } from '../modals/user_enable/user_enable';
 import { UserEdit } from '../modals/user_edit/user_edit';
@@ -20,6 +21,11 @@ export class Users extends ComponentTable {
     this.loadData();
 
     moment.locale(this.appInfo.locale);
+
+    // Initialize Details Panel
+    this.infoComponent = new DetailsPanel('details-panel-placeholder', {
+      dataset: props.dataset
+    });
 
     // this.connection.userSessions('85330d36-0215-412d-bd93-a39c4596f5e6').then((res, statusCode) => {
     //   console.log(res);
@@ -66,7 +72,7 @@ export class Users extends ComponentTable {
 
 
         index++;
-        let html = `<div class="columns is-marginless table-row ${classNames}">
+        let html = `<div class="columns is-marginless table-row ${classNames}" data-id="${row.uuid}" data-bind-clkcb="userSelectCallback">
         <div class="column is-3"><a href="#" data-id="${row.uuid}" data-bind-clkcb="userEditCallback">${metaData.name}</a></div>
         <div class="column is-3">
             <p>${row.email}</p>
@@ -253,7 +259,7 @@ export class Users extends ComponentTable {
             }).catch((response, statusCode) => {
               this.modal.stopLoading();
               this.modal.removeModal();
-              
+
               console.log(`Can't modify user (${response.statusMessage})`);
             });
           },
@@ -360,6 +366,13 @@ export class Users extends ComponentTable {
     });
   }
 
+  userSelectCallback(e, id) {
+    this.connection.getUserByUUID(id).then((res, statusCode) => {
+      let user = res[0];
+
+      this.infoComponent.showInfo(user.email);
+    });
+  }
 
   setupOrder(e, id) {
 

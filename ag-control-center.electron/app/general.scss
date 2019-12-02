@@ -1,7 +1,7 @@
-// html,
-// body {
-//   overflow: hidden;
-// }
+html,
+body {
+  overflow: hidden;
+}
 
 // ul {
 //   line-height: 2;
@@ -10,11 +10,12 @@
 
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 601px) {
-  // html,
-  // body {
-  //   // font-size: 14px;
-  //   // line-height: 1.6;
-  // }
+  html,
+  body {
+    overflow: hidden;
+    // font-size: 14px;
+    // line-height: 1.6;
+  }
 }
 
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */

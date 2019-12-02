@@ -5,6 +5,12 @@
 $family-sans-serif: "DejaVu Sans Extra Light", sans-serif;
 $family-secondary: $family-sans-serif;
 
+$footerHeight: 80px;
+$leftPanelsWidth: 500px;
+
 /* Mobile variables */
 $breakpointMobile: 600px;
 
+
+@import "~bulma/bulma.sass";
+@import "./general.scss"; 

@@ -121,9 +121,9 @@ class ViewController {
     }
 
     // Initialize Header
-    this.headerComponent = new Header('header-placeholder');
+    // this.headerComponent = new Header('header-placeholder');
     // this.connection.setCookie('accessToken', '', -9999999);
-
+    
     if (!this.connection.hasAccessToken()) {
       // Initialize Login component
       this.loginController = new LoginController('container-placeholder', {

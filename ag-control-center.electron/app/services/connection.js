@@ -17,7 +17,7 @@ export class Connection extends Service {
 
     requestServer(options) {
         return new Promise((resolve, reject) => {
-            console.log(this.accessToken);
+      
             request(options, (error, response, body) => {
                 if (response === undefined && error !== undefined) {
                     let res = {

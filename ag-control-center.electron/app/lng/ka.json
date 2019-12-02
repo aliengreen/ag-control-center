@@ -58,6 +58,7 @@
     "Email or Phone": "ელ-ფოსტა ან ტელეფონის ნომერი",
     "New Password": "ახალი პაროლი",
     "Generate": "გენერაცია",
+    "Select User": "მონიშნე მომხმარებელი",
     "Connection error": "კავშირის შეცდომა, ხშირ შემთხვევაში კავშირის ხარვეზი ინტერნეტს უკავშირდება",
     "Are you sure you would like to reactivate this user?": "დარწმუნებული ხართ, რომ გსურთ ამ მომხმარებლის ჩართვა?",
     "Full name of the user. Do not confuse this with the device name!": "მომხმარებლის სრული სახელი და გვარი. ეს არ აგერიოთ მოწყობილობის სახელში !",
