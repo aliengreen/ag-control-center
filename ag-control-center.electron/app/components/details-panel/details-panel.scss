@@ -1,4 +1,4 @@
-@import '../../_variables.scss';
+@import "../../_variables.scss";
 
 .info-title {
   font-weight: bold;
@@ -23,7 +23,7 @@
 }
 
 .info-content {
-  padding: 0 8% 24px 8%;
+  padding: 0 8% 0 8%;
   margin: 0 auto;
   background: $grey-lighter;
   overflow-y: scroll;
@@ -39,10 +39,14 @@
   right: 24px;
   z-index: 1000;
   background: $grey-lightest;
-  width: $leftPanelsWidth;
+  width: $panelWidth;
   height: 60vh;
   transition: all 0.4s ease-in-out;
   transform: translateY(calc(100% - #{$footerHeight}));
+  -webkit-box-shadow: -2px -2px 12px -4px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: -2px -2px 12px -4px rgba(0, 0, 0, 0.1);
+  box-shadow: -2px -2px 12px -4px rgba(0,0,0,0.1);
+  border-radius: 5%;
 }
 
 .info-container.info-active {
@@ -70,7 +74,7 @@
 }
 
 @media (max-width: 600px) {
-  .info-container  {
+  .info-container {
     left: 0;
     width: 100%;
     height: 80vh;
