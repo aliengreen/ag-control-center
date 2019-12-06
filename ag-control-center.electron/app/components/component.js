@@ -147,6 +147,7 @@ export class Component {
           element.addEventListener('click', (e) => {
             let id = element.getAttribute('data-id');
             let name = element.getAttribute('data-bind-clkcb');
+            console.log(this);
             this[name](e, id);
           });
 

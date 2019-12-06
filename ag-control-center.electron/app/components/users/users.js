@@ -415,4 +415,28 @@ export class Users extends ComponentTable {
     this.order_by = 'created';
     this.reload();
   }
+
+  selectTabUser(e, id) {
+
+    const tabs = this.componentElem.querySelectorAll('.tab-details')
+    tabs.forEach((elem) => { elem.classList.remove('is-active'); })
+    const tabPages = this.componentElem.querySelectorAll('.tab-page')
+    tabPages.forEach((elem) => { elem.classList.add('is-hidden'); })
+    e.target.parentElement.classList.add('is-active');
+    const tabUser = this.componentElem.querySelector(`#user-placeholder`);
+    tabUser.classList.remove('is-hidden');
+    // console.log(tab);
+  }
+
+  selectTabDevices(e, id) {
+
+    const tabs = this.componentElem.querySelectorAll('.tab-details')
+    tabs.forEach((elem) => { elem.classList.remove('is-active'); })
+    const tabPages = this.componentElem.querySelectorAll('.tab-page')
+    tabPages.forEach((elem) => { elem.classList.add('is-hidden'); })
+
+    e.target.parentElement.classList.add('is-active');
+    const tabDevices = this.componentElem.querySelector(`#devices-placeholder`);
+    tabDevices.classList.remove('is-hidden');
+  }
 }

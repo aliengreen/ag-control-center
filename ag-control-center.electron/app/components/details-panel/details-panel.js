@@ -1,6 +1,9 @@
 import './details-panel.scss'
 import template from './details-panel.html'
 import { Component } from '../component'
+import { DeviceView } from './device-view'
+import JSONEditor from 'jsoneditor';
+import moment from 'moment';
 
 /**
  * Details Panel Component
@@ -14,51 +17,36 @@ export class DetailsPanel extends Component {
   constructor(placeholderId, props) {
     super(placeholderId, props, template)
 
+    const options = {
+      mode: 'tree',
+      onEditable: function (node) {
+        return false;
+      }
+    };
+    // this.editor = new JSONEditor(this.refs.jsoneditor, options);
+    this.devices = new DeviceView('devices-placeholder', {
+      dataset: props.dataset
+    });
+
     // Toggle info panel on title click
     this.refs.title.addEventListener('click', () => this.refs.container.classList.toggle('info-active'))
   }
 
   /** Show info when a user item is selected */
-  async showInfo(user) {
+  showInfo(user) {
 
-    console.log(user.devices);
+    var clonedObj = { ...user };
+    delete clonedObj.meta;
+    delete clonedObj.devices;
+    const devices = JSON.parse(user.devices);
+
     let userMeta = JSON.parse(user.meta);
 
     // Display title
     this.refs.title.innerHTML = `<h1 class="has-text-weight-bold">${userMeta.name}</h1>`
 
-    // Download and display information, based on location type
-    this.refs.content.innerHTML = `
-    <div class="tabs is-toggle is-toggle-rounded">
-    <ul>
-      <li class="is-active">
-        <a>
-          <span class="icon is-small"><i class="fa fa-image"></i></span>
-          <span>Pictures</span>
-        </a>
-      </li>
-      <li>
-        <a>
-          <span class="icon is-small"><i class="fa fa-music"></i></span>
-          <span>Music</span>
-        </a>
-      </li>
-      <li>
-        <a>
-          <span class="icon is-small"><i class="fa fa-film"></i></span>
-          <span>Videos</span>
-        </a>
-      </li>
-      <li>
-        <a>
-          <span class="icon is-small"><i class="fa fa-file"></i></span>
-          <span>Documents</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-      `;
+    this.devices.show(devices, user);
   }
+
 
 }

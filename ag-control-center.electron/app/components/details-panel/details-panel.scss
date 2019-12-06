@@ -23,12 +23,12 @@
 }
 
 .info-content {
-  padding: 0 8% 0 8%;
+  padding: 0 0 0 0;
   margin: 0 auto;
-  background: $grey-lighter;
+  // background: $grey-lighter;
   overflow-y: scroll;
-  font-size: 1rem;
-  line-height: 1.25em;
+  // font-size: 1rem;
+  // line-height: 1.25em;
   // font-weight: 300;
 }
 
@@ -36,9 +36,8 @@
   position: absolute;
   overflow-y: hidden;
   bottom: 0;
-  right: 24px;
-  z-index: 1000;
-  background: $grey-lightest;
+  right: 10px;
+  background: $white-ter;
   width: $panelWidth;
   height: 60vh;
   transition: all 0.4s ease-in-out;
@@ -46,7 +45,6 @@
   -webkit-box-shadow: -2px -2px 12px -4px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: -2px -2px 12px -4px rgba(0, 0, 0, 0.1);
   box-shadow: -2px -2px 12px -4px rgba(0,0,0,0.1);
-  border-radius: 5%;
 }
 
 .info-container.info-active {
@@ -55,10 +53,16 @@
 
 .info-body {
   margin-top: $footerHeight;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
   position: relative;
-  height: 80%;
+  // height: 80%;
+}
+
+.info-tap-content {
+  padding: 20px;
+  overflow-y: scroll;
+  height: 45vh;
 }
 
 .info-footer {
