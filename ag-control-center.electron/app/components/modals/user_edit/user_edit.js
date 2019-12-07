@@ -26,6 +26,15 @@ export class UserEdit extends Component {
       this.setValue('user-name', this.userMeta.name);
       this.setValue('user-emailphone', this.user.email);
       this.setValue('user-accesstype', this.user.type);
+
+      if (this.userMeta.street_address !== undefined) {
+        this.setValue('user-streetaddress', this.userMeta.street_address);
+        this.setValue('user-addressline2', this.userMeta.address_line_2);
+        this.setValue('user-city', this.userMeta.city);
+        this.setValue('user-regionprovincestate', this.userMeta.region_province_state);
+        this.setValue('user-zipcode', this.userMeta.zip_code);
+        this.setValue('user-country', this.userMeta.country);
+      }
     }
 
 
@@ -72,8 +81,21 @@ export class UserEdit extends Component {
 
     const type = this.getValue('user-accesstype');
 
+    const streetaddress = this.getValue('user-streetaddress');
+    const addressline2 = this.getValue('user-addressline2');
+    const city = this.getValue('user-city');
+    const regionprovincestate = this.getValue('user-regionprovincestate');
+    const zipcode = this.getValue('user-zipcode');
+    const country = this.getValue('user-country');
+
 
     this.userMeta.name = name;
+    this.userMeta.street_address = streetaddress;
+    this.userMeta.address_line_2 = addressline2;
+    this.userMeta.city = city;
+    this.userMeta.region_province_state = regionprovincestate;
+    this.userMeta.zip_code = zipcode;
+    this.userMeta.country = country;
     this.user.meta = JSON.stringify(this.userMeta);
     this.user.email = emailphone;
     this.user.type = type;

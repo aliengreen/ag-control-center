@@ -47,13 +47,87 @@
                     </p>
                 </div>
             </div>
+            <hr>
+
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <!-- Street Address -->
+                    <div class="field">
+                        <label class="label" data-trn>Street Address</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Street Address" id="user-streetaddress"
+                                data-field-user-streetaddress data-trn>
+                        </div>
+                    </div>
+
+                    <!-- Address Line 2 -->
+                    <div class="field">
+                        <label class="label" data-trn>Address line 2</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Address line 2" id="user-addressline2"
+                                data-field-user-addressline2 data-trn>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-body">
+
+                    <!-- City -->
+                    <div class="field">
+                        <label class="label" data-trn>City</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="City" id="user-city" data-field-user-city
+                                data-trn>
+                        </div>
+                    </div>
+
+                    <!-- Region/Province/State -->
+                    <div class="field">
+                        <label class="label" data-trn>Region/Province/State</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Region/Province/State"
+                                id="user-regionprovincestate" data-field-user-regionprovincestate data-trn>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-body">
+
+                    <!-- Zip Code -->
+                    <div class="field">
+                        <label class="label" data-trn>Zip Code</label>
+                        <div class="control">
+                            <input class="input" type="text" size="10" placeholder="Zip Code" id="user-zipcode"
+                                data-field-user-zipcode data-trn>
+                        </div>
+                    </div>
+
+                    <!-- Country -->
+                    <div class="field">
+                        <label class="label" data-trn>Country</label>
+                        <div class="control">
+                            <div class="select">
+                                <select class="select-country" id="user-country" data-field-user-country>
+                                    <option value="Georgia">Georgia</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
         </section>
         <footer class="modal-card-foot">
             <button class="button is-success is-rounded" data-loading data-click-event="saveButton"
                 data-trn>Save</button>
-            <button class="button is-rounded close-button" data-click-event="cancelButton"
-                data-trn>Cancel</button>
+            <button class="button is-rounded close-button" data-click-event="cancelButton" data-trn>Cancel</button>
         </footer>
     </div>
 </div>
