@@ -2,8 +2,9 @@ import './details-panel.scss'
 import template from './details-panel.html'
 import { Component } from '../component'
 import { DeviceView } from './device-view'
-import JSONEditor from 'jsoneditor';
-import moment from 'moment';
+import { UserView } from './user-view'
+// import JSONEditor from 'jsoneditor';
+// import moment from 'moment';
 
 /**
  * Details Panel Component
@@ -12,7 +13,6 @@ import moment from 'moment';
  */
 export class DetailsPanel extends Component {
   /** DetailsPanel Component Constructor
-   * @param { Object } props.data.apiService ApiService instance to use for data fetching
    */
   constructor(placeholderId, props) {
     super(placeholderId, props, template)
@@ -27,6 +27,11 @@ export class DetailsPanel extends Component {
     this.devices = new DeviceView('devices-placeholder', {
       dataset: props.dataset
     });
+
+    this.user = new UserView('user-placeholder', {
+      dataset: props.dataset
+    });
+
 
     // Toggle info panel on title click
     this.refs.title.addEventListener('click', () => this.refs.container.classList.toggle('info-active'))
@@ -46,6 +51,7 @@ export class DetailsPanel extends Component {
     this.refs.title.innerHTML = `<h1 class="has-text-weight-bold">${userMeta.name}</h1>`
 
     this.devices.show(devices, user);
+    this.user.show(user);
   }
 
 

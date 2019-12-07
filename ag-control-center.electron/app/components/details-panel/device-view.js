@@ -8,7 +8,6 @@ import moment from 'moment';
  */
 export class DeviceView extends Component {
   /** DeviceView Component Constructor
-   * @param { Object } props.data.apiService ApiService instance to use for data fetching
    */
   constructor(placeholderId, props) {
     super(placeholderId, props, template)
@@ -64,14 +63,14 @@ export class DeviceView extends Component {
     return attributes;
   }
 
-  powerLevelTag(attributes) {
-    let tagPlug = `<i class="fa fa-plug"></i>&nbsp;`;
-    let tagBattery = `<i class="fa fa-battery"></i>&nbsp;<span class="is-size-7">22%</span>`;
-  }
-
   /** Show info when a user item is selected */
   async show(devices, user) {
 
+    if(devices === null) {
+      this.refs.device_items.innerHTML = '<span class="tag is-warning" data-trn>no device</span>';
+      this.translateComponent();
+      return ;
+    }
 
     let device_items = '';
     devices.forEach(device => {
@@ -85,7 +84,13 @@ export class DeviceView extends Component {
             <i class="fa fa-hdd-o"></i>
           </span>
         </div>
-        <div class="media-content"><p class="title is-4">${attributes.name}</p><span>${attributes.eui64}</span>`;
+        <div class="media-content"><p class="title is-4">${attributes.name}<span class="is-size-7 is-family-code">&nbsp;${attributes.eui64}</span>
+          <a class="button is-small is-outlined" alt="Copy">
+          <span class="icon">
+            <i class="fa fa-copy"></i>
+          </span>
+          </a>
+        </p>`;
 
         for(var service_name in attributes.registers) {
           let service = attributes.registers[service_name];
