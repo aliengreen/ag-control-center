@@ -66,17 +66,17 @@ export class DeviceView extends Component {
   /** Show info when a user item is selected */
   async show(devices, user) {
 
-    if(devices === null) {
+    if (devices === null) {
       this.refs.device_items.innerHTML = '<span class="tag is-warning" data-trn>no device</span>';
       this.translateComponent();
-      return ;
+      return;
     }
 
     let device_items = '';
     devices.forEach(device => {
 
       const attributes = this.normalizeDeviceFields(device, user);
-      
+
       device_items += `
        <div  class="media">
         <div class="media-left">
@@ -85,33 +85,32 @@ export class DeviceView extends Component {
           </span>
         </div>
         <div class="media-content"><p class="title is-4">${attributes.name}<span class="is-size-7 is-family-code">&nbsp;${attributes.eui64}</span>
-          <a class="button is-small is-outlined" alt="Copy">
+          <a class="button is-small is-outlined" alt="Copy" data-id="${attributes.eui64}" data-bind-clkcb="copyEUI64">
           <span class="icon">
             <i class="fa fa-copy"></i>
           </span>
           </a>
-        </p>
-        <p>${attributes.date_added}</p>`;
+        </p>`;
 
-        for(var service_name in attributes.registers) {
-          let service = attributes.registers[service_name];
+      for (var service_name in attributes.registers) {
+        let service = attributes.registers[service_name];
 
-          if(Array.isArray(service)) {
-            service = service[0]
-          }
+        if (Array.isArray(service)) {
+          service = service[0]
+        }
 
         console.log(service);
         let tagPlug = '';
-        if(service.battery_level) {
+        if (service.battery_level) {
           tagPlug = `<i class="fa fa-battery"></i>&nbsp;<span class="is-size-7">${service.battery_level}%</span>`;
         } else {
           tagPlug = `<i class="fa fa-plug"></i>&nbsp;`;
         }
 
         let list = '';
-        for(var att_name in service) {
+        for (var att_name in service) {
           let att = service[att_name];
-          list += `<li class="is-size-7 is-family-code">${att_name}: ${att.toString()}</li>`; 
+          list += `<li class="is-size-7 is-family-code">${att_name}: ${att.toString()}</li>`;
         }
         list += `<li>&nbsp;</li>`;
         device_items += `
@@ -119,18 +118,18 @@ export class DeviceView extends Component {
         ${tagPlug}
         <i class="fa fa-wifi"></i>&nbsp;<span class="is-size-7">${service.wifi_signal_level}%</span>
         <ul>
-          <li>
-            <p class="is-size-7">${service.last_seen_text}</p>
-          </li>
-          <li>&nbsp;</li>
-          <li class="is-size-6 is-uppercase has-text-weight-bold"><span data-trn>Attributes</span>:</li>
-          <li>
-            <ul>
-            ${list}
-            </ul>
-          </li>
+          <li><p class="is-size-7"><span data-trn>Registration date</span> ${moment(attributes.date_added).format('D MMM YYYY h:mm A')}</p></li>
+          <li><p class="is-size-7"><span data-trn>Last seen</span> ${service.last_seen_text}</p></li>
+          <li><a class="is-size-7" href="#" data-bind-clkcb="showMore" data-trn>Show more</a></li>
         </ul>
-  
+        <ul class="is-hidden">
+        <li>
+          <ul>
+          ${list}
+          </ul>
+        </li>
+        </ul>
+        <p>&nbsp;</p>
         `
       }
 
@@ -141,7 +140,33 @@ export class DeviceView extends Component {
     });
 
     this.refs.device_items.innerHTML = device_items;
+    this.bindCallbacks();
     this.translateComponent();
   }
 
+  copyEUI64(e, id) {
+    if (!navigator.clipboard) {
+      this.dataset.snackbar.show('Copy clipboard not supported by this browser', 'danger');
+      return;
+    }
+
+    navigator.clipboard.writeText(id).then(() => {
+      this.dataset.snackbar.show('Copying to clipboard was successful!', 'success');
+    }, function (err) {
+      this.dataset.snackbar.show('Could not copy EUI64', 'danger');
+    });
+
+    // console.log(id);
+  }
+
+  showMore(e, id) {
+    const showMore = e.target.parentElement.parentElement.nextElementSibling;
+    console.log(showMore);
+    if (showMore.classList.contains('is-hidden')) {
+      showMore.classList.remove('is-hidden');
+    } else {
+      showMore.classList.add('is-hidden');
+    }
+    // console.log(showMore);
+  }
 }
