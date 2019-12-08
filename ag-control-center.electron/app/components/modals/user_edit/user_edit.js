@@ -28,6 +28,10 @@ export class UserEdit extends Component {
       this.setValue('user-accesstype', this.user.type);
 
       if (this.userMeta.street_address !== undefined) {
+        this.setValue('user-email', this.userMeta.email);
+        this.setValue('user-firstname', this.userMeta.first_name);
+        this.setValue('user-lastname', this.userMeta.last_name);
+        this.setValue('user-phonenumber', this.userMeta.phone_number);
         this.setValue('user-streetaddress', this.userMeta.street_address);
         this.setValue('user-addressline2', this.userMeta.address_line_2);
         this.setValue('user-city', this.userMeta.city);
@@ -81,6 +85,10 @@ export class UserEdit extends Component {
 
     const type = this.getValue('user-accesstype');
 
+    const firstname = this.getValue('user-firstname');
+    const lastname = this.getValue('user-lastname');
+    const email = this.getValue('user-email');
+    const phonenumber = this.getValue('user-phonenumber');
     const streetaddress = this.getValue('user-streetaddress');
     const addressline2 = this.getValue('user-addressline2');
     const city = this.getValue('user-city');
@@ -90,6 +98,10 @@ export class UserEdit extends Component {
 
 
     this.userMeta.name = name;
+    this.userMeta.first_name = firstname;
+    this.userMeta.last_name = lastname;
+    this.userMeta.email = email;
+    this.userMeta.phone_number = phonenumber;
     this.userMeta.street_address = streetaddress;
     this.userMeta.address_line_2 = addressline2;
     this.userMeta.city = city;

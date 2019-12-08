@@ -76,7 +76,7 @@ export class DeviceView extends Component {
     devices.forEach(device => {
 
       const attributes = this.normalizeDeviceFields(device, user);
-
+      
       device_items += `
        <div  class="media">
         <div class="media-left">
@@ -90,7 +90,8 @@ export class DeviceView extends Component {
             <i class="fa fa-copy"></i>
           </span>
           </a>
-        </p>`;
+        </p>
+        <p>${attributes.date_added}</p>`;
 
         for(var service_name in attributes.registers) {
           let service = attributes.registers[service_name];
