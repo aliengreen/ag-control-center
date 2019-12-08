@@ -146,14 +146,14 @@ export class DeviceView extends Component {
 
   copyEUI64(e, id) {
     if (!navigator.clipboard) {
-      this.dataset.snackbar.show('Copy clipboard not supported by this browser', 'danger');
+      this.dataset.snackbar.show(this.polyglot.t('Copy clipboard not supported by this browser'), 'danger');
       return;
     }
 
     navigator.clipboard.writeText(id).then(() => {
-      this.dataset.snackbar.show('Copying to clipboard was successful!', 'success');
-    }, function (err) {
-      this.dataset.snackbar.show('Could not copy EUI64', 'danger');
+      this.dataset.snackbar.show(this.polyglot.t('Copying to clipboard was successful'), 'success');
+    }, (err) => {
+      this.dataset.snackbar.show(this.polyglot.t('Could not copy serial number'), 'danger');
     });
 
     // console.log(id);

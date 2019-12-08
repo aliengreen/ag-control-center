@@ -83,5 +83,8 @@
     "text.user.deleteuserandkeepdevices": "წაშალე მომხმარებელი და დატოვე მასზე მიბმული მოწყობილობები",
     "text.user.deleteuserandkeepdevices.help": "წაიშლება მხოლოდ მომხმარებელი, ხოლო მასზე მიბმული ყველა მონაცემი ხელუხლებელი დარჩება.",
     "text.user.deleteuseranddeletedevices": "წაშალე მომხმარებელი და ასევე წაშალე მასზე მიბმული მოწყობილობები",
-    "text.user.deleteuseranddeletedevices.help": "ყურადღებით შე ახვარო, მომხმარებელი წაიშლება სისტემიდან და მასთან დაკავშირებული ყველა მონაცემი თან გაყვება უკუნითი უკუნისამდე."
+    "text.user.deleteuseranddeletedevices.help": "ყურადღებით შე ახვარო, მომხმარებელი წაიშლება სისტემიდან და მასთან დაკავშირებული ყველა მონაცემი თან გაყვება უკუნითი უკუნისამდე.",
+    "Copying to clipboard was successful": "ბუფერში გადაწერა წარმატებით დასრულდა",
+    "Could not copy serial number": "სერიული ნომრის კოპირება ვერ მოხერხდა",
+    "Copy clipboard not supported by this browser": "ბუფერში კოპირების ფუნქცია არ აქვს თქვენს ბროუზერს"
 }

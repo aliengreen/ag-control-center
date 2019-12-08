@@ -83,5 +83,8 @@
     "text.user.deleteuserandkeepdevices": "Delete user and keep all devices associated with this user",
     "text.user.deleteuserandkeepdevices.help": "Only the user will be deleted and all data associated with it will remain intact.",
     "text.user.deleteuseranddeletedevices": "Delete user and delete all devices associated with this user",
-    "text.user.deleteuseranddeletedevices.help": "Be Careful ! The user will be removed from system and all associated data with this user"
+    "text.user.deleteuseranddeletedevices.help": "Be Careful ! The user will be removed from system and all associated data with this user",
+    "Copying to clipboard was successful": "Copying to clipboard was successful",
+    "Could not copy serial number": "Could not copy serial number",
+    "Copy clipboard not supported by this browser": "Copy clipboard not supported by this browser"
 }
