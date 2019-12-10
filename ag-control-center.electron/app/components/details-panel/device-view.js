@@ -157,6 +157,7 @@ export class DeviceView extends Component {
     });
 
     // console.log(id);
+
   }
 
   showMore(e, id) {

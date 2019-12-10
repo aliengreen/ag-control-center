@@ -8,6 +8,7 @@ import { UserEnable } from '../modals/user_enable/user_enable';
 import { UserEdit } from '../modals/user_edit/user_edit';
 import { UserResetPassword } from '../modals/user_reset_password/user_reset_password';
 import { UserRemove } from '../modals/user_remove/user_remove';
+import { GeoLocationEdit } from '../modals/geolocation_edit/geolocation_edit';
 
 /**
  * User List Component
@@ -130,6 +131,9 @@ export class Users extends ComponentTable {
                 </a>
                 <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userResetPasswordCallback" data-trn>
                 Reset Password
+                </a>
+                <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userGeolocationCallback" data-trn>
+                Geolocation
                 </a>
                 <hr class="dropdown-divider">
                 <a href="#" class="dropdown-item" data-id="${row.uuid}" data-bind-clkcb="userRemoveCallback" data-trn>
@@ -297,7 +301,6 @@ export class Users extends ComponentTable {
             let user = this.modal.validateForm();
             if (user) {
 
-              console.log(user);
               this.modal.startLoading();
               this.connection.userUpdate(user).then((res, statusCode) => {
                 this.modal.stopLoading();
@@ -340,7 +343,6 @@ export class Users extends ComponentTable {
             let password = this.modal.validateForm();
             if (password) {
 
-              console.log(password);
               this.modal.startLoading();
               this.connection.userUpdatePassword(password, id).then((res, statusCode) => {
                 this.modal.stopLoading();
@@ -356,6 +358,62 @@ export class Users extends ComponentTable {
               this.modal.removeModal();
             }
           },
+        }
+      });
+
+      this.modal.showModalPage();
+
+    }).catch((statusCode) => {
+      console.log(`Can't getUserByUUID (${statusCode})`);
+    });
+  }
+
+  userGeolocationCallback(e, id) {
+
+    if (this.modal) {
+      this.modal = null;
+    }
+
+    this.connection.getUserByUUID(id).then((res, statusCode) => {
+      let user = res[0];
+      let meta = JSON.parse(user.meta);
+      let latlng = [41.739165, 44.756937];
+      let zoomLevel = 12;
+
+      if (meta.geo_location) {
+        latlng = [meta.geo_location.lat, meta.geo_location.lng];
+        zoomLevel = 18;
+      }
+      this.modal = new GeoLocationEdit('modal-placeholder', {
+        dataset: this.dataset,
+        options: { editable: true, latlng: latlng, zoomLevel: zoomLevel },
+        data: user,
+        events: {
+          locationButton: event => {
+            const latlng = this.modal.validateForm();
+            this.modal.locate(latlng, 18);
+          },
+          saveButton: event => {
+            let latlng = this.modal.validateForm();
+            if (latlng) {
+              this.modal.startLoading();
+
+              meta.geo_location = { lat: latlng[0], lng: latlng[1] };
+              user.meta = JSON.stringify(meta);
+              this.connection.userUpdate(user).then((res, statusCode) => {
+                this.modal.stopLoading();
+                this.modal.removeModal();
+                this.dataset.snackbar.show(this.polyglot.t('msg.user.updated', { name: user.email }), 'success');
+                this.reload();
+              }).catch((response, statusCode) => {
+                this.modal.stopLoading();
+                this.modal.removeModal();
+                console.log(`Can't modify user (${response.statusMessage})`);
+              });
+
+              this.modal.removeModal();
+            }
+          }
         }
       });
 

@@ -18,6 +18,10 @@ export class Component {
       this.appInfo = props.dataset.appInfo;
     }
 
+    if (props.options) {
+      this.options = props.options;
+    }
+
     this.setupTemplate(placeholderId, template);
 
     if (props.events) {
@@ -94,6 +98,9 @@ export class Component {
         element.tagName === 'SPAN' ||
         element.tagName === 'LABEL' ||
         element.tagName.startsWith("H")) {
+        element.innerText = this.polyglot.t(element.innerHTML.trim());
+      } else if (element.tagName === 'OPTION') {
+        // this.polyglot.t();
         element.innerText = this.polyglot.t(element.innerHTML.trim());
       }
     }
@@ -195,7 +202,7 @@ export class Component {
     if (element) {
       if (element.tagName === 'INPUT' ||
         element.tagName === 'TEXTAREA' ||
-        element.tagName === 'SELECT' ) {
+        element.tagName === 'SELECT') {
         return element.value;
       } else if (element.tagName === 'IMG') {
         return element.src; /* Do we really need this ?, I don't know */

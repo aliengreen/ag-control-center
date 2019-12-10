@@ -110,16 +110,19 @@
                     code. e.g (for Georgia +995)</p>
             </div>
 
+            <div class="field">
+                <!-- Street Address -->
+                <div class="field">
+                    <label class="label" data-trn>Street Address</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Street Address" id="user-streetaddress"
+                            data-field-user-streetaddress data-trn>
+                    </div>
+                </div>
+            </div>
+
             <div class="field is-horizontal">
                 <div class="field-body">
-                    <!-- Street Address -->
-                    <div class="field">
-                        <label class="label" data-trn>Street Address</label>
-                        <div class="control">
-                            <input class="input" type="text" placeholder="Street Address" id="user-streetaddress"
-                                data-field-user-streetaddress data-trn>
-                        </div>
-                    </div>
 
                     <!-- Address Line 2 -->
                     <div class="field">
@@ -130,6 +133,17 @@
 
                         </div>
                     </div>
+
+                    <!-- ID Number -->
+                    <div class="field">
+                        <label class="label" data-trn>ID Number</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="ID Number" id="user-idnumber"
+                                data-field-user-idnumber data-trn>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -174,8 +188,8 @@
                         <label class="label" data-trn>Country</label>
                         <div class="control">
                             <div class="select">
-                                <select class="select-country" id="user-country" data-field-user-country>
-                                    <option value="Georgia">Georgia</option>
+                                <select class="select-country" id="user-country" data-field-user-country data-trn>
+                                    <option value="Georgia" data-trn>Georgia</option>
                                 </select>
                             </div>
                         </div>

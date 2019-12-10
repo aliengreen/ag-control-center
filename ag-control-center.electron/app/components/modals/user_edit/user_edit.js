@@ -33,6 +33,7 @@ export class UserEdit extends Component {
         this.setValue('user-lastname', this.userMeta.last_name);
         this.setValue('user-phonenumber', this.userMeta.phone_number);
         this.setValue('user-streetaddress', this.userMeta.street_address);
+        this.setValue('user-idnumber', this.userMeta.id_number);
         this.setValue('user-addressline2', this.userMeta.address_line_2);
         this.setValue('user-city', this.userMeta.city);
         this.setValue('user-regionprovincestate', this.userMeta.region_province_state);
@@ -90,6 +91,7 @@ export class UserEdit extends Component {
     const email = this.getValue('user-email');
     const phonenumber = this.getValue('user-phonenumber');
     const streetaddress = this.getValue('user-streetaddress');
+    const idnumber = this.getValue('user-idnumber');
     const addressline2 = this.getValue('user-addressline2');
     const city = this.getValue('user-city');
     const regionprovincestate = this.getValue('user-regionprovincestate');
@@ -103,6 +105,7 @@ export class UserEdit extends Component {
     this.userMeta.email = email;
     this.userMeta.phone_number = phonenumber;
     this.userMeta.street_address = streetaddress;
+    this.userMeta.id_number = idnumber;
     this.userMeta.address_line_2 = addressline2;
     this.userMeta.city = city;
     this.userMeta.region_province_state = regionprovincestate;
@@ -111,7 +114,6 @@ export class UserEdit extends Component {
     this.user.meta = JSON.stringify(this.userMeta);
     this.user.email = emailphone;
     this.user.type = type;
-
 
     return this.user;
   }

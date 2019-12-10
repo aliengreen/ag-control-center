@@ -1,0 +1,51 @@
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <span class="modal-card-title">
+                <span data-trn>Object Geolocation</span> -
+                <span class="subtitle"><strong data-field-name>&nbsp;</strong></span>
+            </span>
+            <button class="delete close-button" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="field is-horizontal">
+                <div class="field-body">
+
+                    <!-- Latitude -->
+                    <div class="field">
+                        <label class="label"><span data-trn>Latitude</span>&nbsp;
+                            <span class="is-size-7">(Latitude)</span></label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Latitude" id="user-latitude"
+                                data-field-user-latitude data-trn>
+                        </div>
+                    </div>
+
+                    <!-- Longitude -->
+                    <div class="field">
+                        <label class="label"><span data-trn>Longitude</span>&nbsp;
+                            <span class="is-size-7">(Longitude)</span></label>
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Longitude" id="user-longitude"
+                                    data-field-user-longitude data-trn>
+                            </div>
+                            <p class="control">
+                                <button class="button is-rounded is-info" data-click-event="locationButton"
+                                    data-trn>Location</button>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div ref="geolocationmap-placeholder" id="geolocationmap-placeholder"></div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success is-rounded" data-loading data-click-event="saveButton"
+                data-trn>Save</button>
+            <button class="button is-rounded close-button" data-click-event="cancelButton" data-trn>Cancel</button>
+        </footer>
+    </div>
+</div>

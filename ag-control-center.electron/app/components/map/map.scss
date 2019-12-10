@@ -1,0 +1,42 @@
+@import "../../_variables.scss";
+
+.map-container {
+  background: $map-background-color;
+  height: 70vh;
+  width: 100%;
+  // position: relative;
+  // top: 0;
+  // left: 0;
+  border-right: 4px solid $grayLight;
+  font: 20px/1.5 $family-sans-serif;
+
+  /** Leaflet Style Overrides **/
+  .leaflet-popup {
+    bottom: 0;
+  }
+
+  .leaflet-popup-content {
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .leaflet-popup-content-wrapper,
+  .leaflet-popup-tip {
+    background: $map-background-color;
+    // color: $offWhite;
+    text-align: center;
+  }
+
+  // .leaflet-control-attribution {
+  //   display: none;
+  // }
+}
+
+@media (max-width: $breakpointMobile) {
+  .map-container {
+    height: 50vh;
+  }
+  .leaflet-bottom {
+    bottom: calc(#{$footerHeight} + 10px);
+  }
+}
