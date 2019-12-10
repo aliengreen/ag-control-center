@@ -15,7 +15,7 @@ export class UserView extends Component {
   constructor(placeholderId, props) {
     super(placeholderId, props, template)
 
-    // this.map = new Map('map-placeholder');
+    this.map = new Map('map-placeholder');
 
     // this.map.show([0, 0]);
   }
@@ -25,6 +25,10 @@ export class UserView extends Component {
   async show(user) {
 
     const meta = JSON.parse(user.meta);
+
+    if (meta.geo_location) {
+      this.map.show([meta.geo_location.lat, meta.geo_location.lng], 18);
+    }
 
     let user_items = '';
 
@@ -52,39 +56,39 @@ export class UserView extends Component {
     user_items += `</div>
       </div>`;
 
-    user_items += `
-    <a class="button is-small is-outlined" alt="Edit Map" data-id="${user.uuid}" data-bind-clkcb="editMap">Edit Map</a>
-    <a class="button is-small is-outlined is-hidden" alt="Edit Map" data-id="${user.uuid}" data-bind-clkcb="cancelMap">Cancel Update</a>
-    `;
+    // user_items += `
+    // <a class="button is-small is-outlined" alt="Edit Map" data-id="${user.uuid}" data-bind-clkcb="editMap">Edit Map</a>
+    // <a class="button is-small is-outlined is-hidden" alt="Edit Map" data-id="${user.uuid}" data-bind-clkcb="cancelMap">Cancel Update</a>
+    // `;
 
     this.refs.user_items.innerHTML = user_items;
     this.translateComponent();
     this.bindCallbacks();
 
-    // this.map.show([41.739165, 44.756937], 18);
+
   }
 
-  editMap(e, id) {
-    // console.log(id);
-    const cancelupdate = e.target.nextElementSibling;
+  // editMap(e, id) {
+  //   // console.log(id);
+  //   const cancelupdate = e.target.nextElementSibling;
 
-    if (cancelupdate.classList.contains('is-hidden')) {
-      e.target.innerHTML = 'Update Map';
-      e.target.nextElementSibling.classList.remove('is-hidden');
-      this.map.editableMarker(true);
-    } else {
-      e.target.innerHTML = 'Edit Map';
-      e.target.nextElementSibling.classList.add('is-hidden');
-      this.map.editableMarker(false);
-    }
-    
-  }
+  //   if (cancelupdate.classList.contains('is-hidden')) {
+  //     e.target.innerHTML = 'Update Map';
+  //     e.target.nextElementSibling.classList.remove('is-hidden');
+  //     this.map.editableMarker(true);
+  //   } else {
+  //     e.target.innerHTML = 'Edit Map';
+  //     e.target.nextElementSibling.classList.add('is-hidden');
+  //     this.map.editableMarker(false);
+  //   }
 
-  cancelMap(e, id) {
-    
-    e.target.previousElementSibling.innerHTML = 'Edit Map';
-    e.target.classList.add('is-hidden');
-    this.map.show([41.739165, 44.756937], 18);
-    this.map.editableMarker(false);
-  }
+  // }
+
+  // cancelMap(e, id) {
+
+  //   e.target.previousElementSibling.innerHTML = 'Edit Map';
+  //   e.target.classList.add('is-hidden');
+  //   this.map.show([41.739165, 44.756937], 18);
+  //   this.map.editableMarker(false);
+  // }
 }

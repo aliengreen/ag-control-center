@@ -39,7 +39,7 @@
   right: 10px;
   background: $white-ter;
   width: $panelWidth;
-  height: 60vh;
+  height: 80vh;
   transition: all 0.4s ease-in-out;
   transform: translateY(calc(100% - #{$footerHeight}));
   -webkit-box-shadow: -2px -2px 12px -4px rgba(0, 0, 0, 0.1);
@@ -62,7 +62,7 @@
 .info-tap-content {
   padding: 20px;
   overflow-y: scroll;
-  height: 45vh;
+  height: 60vh;
 }
 
 .info-footer {
