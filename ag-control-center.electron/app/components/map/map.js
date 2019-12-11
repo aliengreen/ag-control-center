@@ -46,8 +46,6 @@ export class Map extends Component {
 
       if (this.options.latlng !== undefined) {
         latlng = this.options.latlng;
-        // 
-        
       }
     }
 
@@ -73,15 +71,15 @@ export class Map extends Component {
       this.triggerEvent('dragMarker', position);
     });
 
-   
-    // this.map.on('load', (e) => {
-      // console.log(latlng, zoomLevel);
 
-      setTimeout(() => { 
-        this.map.setView(latlng, zoomLevel);
-      }, 1000);
-      
-      // this.map.panTo(new L.LatLng(latlng[0], latlng[1]));
+    // this.map.on('load', (e) => {
+    // console.log(latlng, zoomLevel);
+
+    setTimeout(() => {
+      this.map.setView(latlng, zoomLevel);
+    }, 1000);
+
+    // this.map.panTo(new L.LatLng(latlng[0], latlng[1]));
     // });
 
 
@@ -96,7 +94,11 @@ export class Map extends Component {
   }
 
   show(latlng, zoomLevel) {
-    this.map.setView(latlng, zoomLevel);
+    // this.map.setView(latlng, zoomLevel);
+    this.map.flyTo(latlng, zoomLevel, {
+      animate: true,
+      duration: 1.5
+    });
     this.marker.setLatLng(latlng);
   }
 

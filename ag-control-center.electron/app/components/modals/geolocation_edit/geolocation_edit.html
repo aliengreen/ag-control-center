@@ -9,36 +9,27 @@
             <button class="delete close-button" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-            <div class="field is-horizontal">
-                <div class="field-body">
+            <div class="field">
 
-                    <!-- Latitude -->
-                    <div class="field">
-                        <label class="label"><span data-trn>Latitude</span>&nbsp;
-                            <span class="is-size-7">(Latitude)</span></label>
+                <!-- Latitude, Longitude -->
+                <div class="field">
+                    <label class="label"><span data-trn>Latitude, Longitude</span>&nbsp;
+                        <span class="is-size-7">(Latitude, Longitude)</span></label>
+                    <div class="field has-addons">
                         <div class="control">
-                            <input class="input" type="text" placeholder="Latitude" id="user-latitude"
-                                data-field-user-latitude data-trn>
+                            <input class="input" type="text" size="100" placeholder="Latitude, Longitude"
+                                id="user-latitudelongitude" data-field-user-latitudelongitude data-trn>
                         </div>
+                        <p class="control">
+                            <button class="button is-rounded is-info" data-click-event="locationButton"
+                                data-trn>Go</button>
+                        </p>
                     </div>
-
-                    <!-- Longitude -->
-                    <div class="field">
-                        <label class="label"><span data-trn>Longitude</span>&nbsp;
-                            <span class="is-size-7">(Longitude)</span></label>
-                        <div class="field has-addons">
-                            <div class="control">
-                                <input class="input" type="text" placeholder="Longitude" id="user-longitude"
-                                    data-field-user-longitude data-trn>
-                            </div>
-                            <p class="control">
-                                <button class="button is-rounded is-info" data-click-event="locationButton"
-                                    data-trn>Location</button>
-                            </p>
-                        </div>
-                    </div>
-
                 </div>
+
+            </div>
+            <div class="field">
+                <p class="help" data-trn>Grab map marker with mouse pinter and drag it to the desiered location, then click Save to make the changes.</p>
             </div>
             <div ref="geolocationmap-placeholder" id="geolocationmap-placeholder"></div>
         </section>

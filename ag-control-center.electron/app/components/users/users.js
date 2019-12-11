@@ -391,7 +391,9 @@ export class Users extends ComponentTable {
         events: {
           locationButton: event => {
             const latlng = this.modal.validateForm();
-            this.modal.locate(latlng, 18);
+            if (latlng) {
+              this.modal.locate(latlng, 18);
+            }
           },
           saveButton: event => {
             let latlng = this.modal.validateForm();
@@ -403,8 +405,8 @@ export class Users extends ComponentTable {
               this.connection.userUpdate(user).then((res, statusCode) => {
                 this.modal.stopLoading();
                 this.modal.removeModal();
-                this.dataset.snackbar.show(this.polyglot.t('msg.user.updated', { name: user.email }), 'success');
-                this.reload();
+                this.dataset.snackbar.show(this.polyglot.t('msg.user.updated', { name: meta.name }), 'success');
+                // this.reload();
               }).catch((response, statusCode) => {
                 this.modal.stopLoading();
                 this.modal.removeModal();
@@ -412,6 +414,8 @@ export class Users extends ComponentTable {
               });
 
               this.modal.removeModal();
+            } else {
+              alert(this.polyglot.t('Incorrect Latitude and Longitude'));
             }
           }
         }

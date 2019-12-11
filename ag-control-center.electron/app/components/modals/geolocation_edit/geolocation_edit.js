@@ -44,9 +44,16 @@ export class GeoLocationEdit extends Component {
   }
 
   validateForm() {
-    const latitude = this.getValue('user-latitude');
-    const longitude = this.getValue('user-longitude');
-    return [latitude, longitude];
+    const tmp = this.getValue('user-latitudelongitude');
+    if(!tmp.indexOf(',')) {
+      return null;
+    }
+    const latlng = tmp.split(',');
+    if(latlng.length != 2) {
+      return null;
+    }
+
+    return [latlng[0].trim(), latlng[1].trim()];
   }
 
   locate(latlng, zoomLevel) {
@@ -54,8 +61,7 @@ export class GeoLocationEdit extends Component {
   }
 
   setLocation(latlng) {
-    this.setValue('user-latitude', latlng[0]);
-    this.setValue('user-longitude', latlng[1]);
+    this.setValue('user-latitudelongitude', latlng[0] + ', ' + latlng[1]);
   }
 
   /** Remove all events and close modal container (make inactive) */

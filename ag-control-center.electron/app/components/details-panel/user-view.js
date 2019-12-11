@@ -28,6 +28,7 @@ export class UserView extends Component {
 
     if (meta.geo_location) {
       this.map.show([meta.geo_location.lat, meta.geo_location.lng], 18);
+      this.refs['user-geolocation-gmap-link'].href = `https://maps.google.com/?q=${meta.geo_location.lat},${meta.geo_location.lng}&z=30`;
     }
 
     let user_items = '';
