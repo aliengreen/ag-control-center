@@ -2,6 +2,12 @@
   <div ref="user_items" class="card-content">
   </div>
 
-  <div id="map-placeholder" ref="map-placeholder"></div>
-  <p class="has-text-centered help">&nbsp;<a href="#" target="_blank" ref="user-geolocation-gmap-link" data-trn>Show me on Google Map</a></p>
+  <div ref="map-view">
+    <div id="map-placeholder" ref="map-placeholder"></div>
+    <p class="has-text-centered help">&nbsp;<a href="#" target="_blank" ref="user-geolocation-gmap-link" data-trn>Show
+        me on Google Map</a></p>
+  </div>
+  <div ref="map-footer-text" class="is-flex has-flex-centered">
+    <span class="tag is-warning"><span data-trn>No location specified.</span>&nbsp;<a href="#" data-bind-clkcb="addGeolocation" data-trn>Add</a></span>
+  </div>
 </div>

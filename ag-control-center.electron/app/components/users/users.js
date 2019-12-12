@@ -407,6 +407,7 @@ export class Users extends ComponentTable {
                 this.modal.removeModal();
                 this.dataset.snackbar.show(this.polyglot.t('msg.user.updated', { name: meta.name }), 'success');
                 // this.reload();
+                this.showInfo(id);
               }).catch((response, statusCode) => {
                 this.modal.stopLoading();
                 this.modal.removeModal();
@@ -429,6 +430,17 @@ export class Users extends ComponentTable {
   }
 
   userSelectCallback(e, id) {
+    this.current_id = id;
+    this.showInfo(id);
+  }
+
+  addGeolocation(e, id) {
+    if (this.current_id !== undefined) {
+      this.userGeolocationCallback(e, this.current_id);
+    }
+  }
+
+  showInfo(id) {
     this.connection.getUserByUUID(id).then((res, statusCode) => {
       let user = res[0];
       this.infoComponent.showInfo(user);

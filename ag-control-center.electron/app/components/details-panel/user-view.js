@@ -27,8 +27,13 @@ export class UserView extends Component {
     const meta = JSON.parse(user.meta);
 
     if (meta.geo_location) {
+      this.showElement(this.refs['map-view']);
+      this.hideElement(this.refs['map-footer-text']);
       this.map.show([meta.geo_location.lat, meta.geo_location.lng], 18);
       this.refs['user-geolocation-gmap-link'].href = `https://maps.google.com/?q=${meta.geo_location.lat},${meta.geo_location.lng}&z=30`;
+    } else {
+      this.hideElement(this.refs['map-view']);
+      this.showElement(this.refs['map-footer-text']);
     }
 
     let user_items = '';

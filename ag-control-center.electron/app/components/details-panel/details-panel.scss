@@ -77,6 +77,11 @@
   font-weight: bold;
 }
 
+.has-flex-centered {
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 600px) {
   .info-container {
     left: 0;

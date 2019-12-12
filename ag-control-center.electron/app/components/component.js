@@ -163,6 +163,18 @@ export class Component {
     });
   }
 
+  /** Show given element */
+  showElement(el) {
+    if (el.classList.contains('is-hidden')) {
+      el.classList.remove('is-hidden');
+    }
+  }
+
+  /** Hidden given element */
+  hideElement(el) {
+    el.classList.add('is-hidden');
+  }
+
   /* 
    * Show modal HTML page in given parent element 
    * Also setup click events.

@@ -60,6 +60,7 @@ export class Map extends Component {
     // }).addTo(this.map);
 
 
+
     this.marker = L.marker(latlng, { icon: L.icon({ iconUrl: pinPNG, iconSize: [35, 42] }), draggable: editableMarker });
 
     this.marker.addTo(this.map);
