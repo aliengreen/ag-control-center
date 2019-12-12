@@ -1,7 +1,7 @@
 {
   "name": "ag-control-center",
   "productName": "ag-control-center",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An Interactive Control Center of Alien Green IoT system. This is a admin panel for AG users and devices.",
   "main": ".webpack/main",
   "scripts": {
@@ -9,7 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "echo \"No linting configured\"",
+    "deploy": "electron-builder build --mac --publish always"
   },
   "keywords": [
     "map",
@@ -20,6 +21,10 @@
     "aliengreen",
     "alien"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aliengreen/ag-control-center.git"
+  },
   "author": {
     "name": "Lasha Dolidze",
     "email": "lasha@picktek.com"
@@ -80,6 +85,7 @@
     "bulma": "^0.8.0",
     "dejavu-sans-extra-light": "^1.0.0",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-updater": "^4.2.0",
     "file-loader": "^4.2.0",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
@@ -112,6 +118,7 @@
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
     "css-loader": "^3.2.0",
     "electron": "6.0.11",
+    "electron-builder": "^21.2.0",
     "electron-packager": "^14.1.0",
     "node-loader": "^0.6.0",
     "style-loader": "^0.23.1"

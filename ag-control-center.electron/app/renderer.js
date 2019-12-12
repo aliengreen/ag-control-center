@@ -74,8 +74,7 @@ class ViewController {
       this.initializeMainProcessMenuCmd();
     }
 
-    /* Set document titile */
-    document.title = `${this._appInfo.title} ${this._appInfo.version}`;
+
     if (!electron) {
       document.getElementById('app').outerHTML = template;
     }
@@ -101,7 +100,7 @@ class ViewController {
           let response = event.detail;
           if (response.statusCode > 200) {
             if (response.statusCode === 401) {
-              alert(this.polyglot.t('The access token expired')); 
+              alert(this.polyglot.t('The access token expired'));
               this.connection.setCookie('accessToken', '', -9999999);
               location.reload();
             } else {
@@ -123,7 +122,7 @@ class ViewController {
     // Initialize Header
     // this.headerComponent = new Header('header-placeholder');
     // this.connection.setCookie('accessToken', '', -9999999);
-    
+
     if (!this.connection.hasAccessToken()) {
       // Initialize Login component
       this.loginController = new LoginController('container-placeholder', {
@@ -141,11 +140,8 @@ class ViewController {
       this.createWizard(dataset);
     }
 
-    /* Set app version */
-    let elements = document.querySelectorAll('.app-version');
-    elements.forEach((element) => {
-      element.innerHTML = this._appInfo.version;
-    });
+
+    this.updateAppVersion();
 
     /* Set changelog */
     let changeLogElem = document.querySelector('#changelog-placeholder');
@@ -154,6 +150,17 @@ class ViewController {
       changeLogElem.innerHTML += `<p>საწყისი ბეტა ვერსია</p>`;
     }
 
+  }
+
+  updateAppVersion() {
+    /* Set app version */
+    let elements = document.querySelectorAll('.app-version');
+    elements.forEach((element) => {
+      element.innerHTML = this._appInfo.version;
+    });
+
+    /* Set document titile */
+    document.title = `${this._appInfo.title} ${this._appInfo.version}`;
   }
 
   createWizard(dataset) {
@@ -197,6 +204,25 @@ class ViewController {
 
     })
     /* ---------------- */
+
+    ipcRenderer.send('app_version');
+    ipcRenderer.on('app_version', (event, arg) => {
+      ipcRenderer.removeAllListeners('app_version');
+      this._appInfo.version = arg.version;
+      console.log(arg.version);
+      this.updateAppVersion();
+    });
+
+    ipcRenderer.on('update_available', () => {
+      ipcRenderer.removeAllListeners('update_available');
+      this.snackbar.show('A new update is available. Downloading now...', 'warning');
+    });
+
+    ipcRenderer.on('update_downloaded', () => {
+      ipcRenderer.removeAllListeners('update_downloaded');
+      this.snackbar.show('Update Downloaded. It will be installed on restart. Restart now?', 'warning');
+      ipcRenderer.send('restart_app');
+    });
 
   }
 }
