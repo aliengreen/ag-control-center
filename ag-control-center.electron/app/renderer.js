@@ -209,20 +209,23 @@ class ViewController {
     ipcRenderer.on('app_version', (event, arg) => {
       ipcRenderer.removeAllListeners('app_version');
       this._appInfo.version = arg.version;
-      console.log(arg.version);
       this.updateAppVersion();
     });
 
-    ipcRenderer.on('update_available', () => {
-      ipcRenderer.removeAllListeners('update_available');
-      this.snackbar.show('A new update is available. Downloading now...', 'warning');
-    });
+    // ipcRenderer.on('update_available', () => {
+    //   ipcRenderer.removeAllListeners('update_available');
+    //   if (this.snackbar !== undefined) {
+    //     this.snackbar.show('A new update is available. Downloading now...', 'warning');
+    //   }
+    // });
 
-    ipcRenderer.on('update_downloaded', () => {
-      ipcRenderer.removeAllListeners('update_downloaded');
-      this.snackbar.show('Update Downloaded. It will be installed on restart. Restart now?', 'warning');
-      ipcRenderer.send('restart_app');
-    });
+    // ipcRenderer.on('update_downloaded', () => {
+    //   ipcRenderer.removeAllListeners('update_downloaded');
+    //   if (this.snackbar !== undefined) {
+    //     this.snackbar.show('Update Downloaded. It will be installed on restart. Restart now?', 'warning');
+    //   }
+    //   ipcRenderer.send('restart_app');
+    // });
 
   }
 }

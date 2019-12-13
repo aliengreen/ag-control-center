@@ -1,6 +1,8 @@
 
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const { autoUpdater } = require('electron-updater');
+require('update-electron-app')()
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -115,7 +117,7 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow();
-  autoUpdater.checkForUpdatesAndNotify();
+
 });
 
 // Quit when all windows are closed.
@@ -135,21 +137,8 @@ app.on('activate', () => {
   }
 });
 
-
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
-});
-
-autoUpdater.on('update-available', () => {
-  mainWindow.webContents.send('update_available');
-});
-
-autoUpdater.on('update-downloaded', () => {
-  mainWindow.webContents.send('update_downloaded');
-});
-
-ipcMain.on('restart_app', () => {
-  autoUpdater.quitAndInstall();
 });
 
 // In this file you can include the rest of your app's specific main process
