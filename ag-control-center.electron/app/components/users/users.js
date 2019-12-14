@@ -441,9 +441,14 @@ export class Users extends ComponentTable {
   }
 
   showInfo(id) {
+    this.startLoading();
     this.connection.getUserByUUID(id).then((res, statusCode) => {
       let user = res[0];
       this.infoComponent.showInfo(user);
+      this.stopLoading();
+    }).catch((statusCode) => {
+      console.log(`Can't load user (${statusCode})`);
+      this.stopLoading();
     });
   }
 

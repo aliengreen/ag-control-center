@@ -59,8 +59,8 @@ class ViewController {
     this._appInfo = {
       title: 'AG Center',
       version: 0.1,
-      api_url: 'https://admin-dev.aliengreen.ge',
-      app_url: 'https://app-dev.aliengreen.ge',
+      api_url: 'https://admin.aliengreen.ge',
+      app_url: 'https://app.aliengreen.ge',
       language: kalng,
       locale: 'ka'
     }

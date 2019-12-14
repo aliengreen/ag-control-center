@@ -141,6 +141,27 @@ export class Connection extends Service {
         return this.requestServer(options);
     }
 
+
+    getDeviceByEUI64(eui64) {
+
+        var param = {
+            eui64: eui64
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/device",
+            method: "GET",
+            json: true,
+            qs: param
+        };
+
+        return this.requestServer(options);
+    }
+
+
     userModify(operation, uuid) {
 
         var param = {
@@ -230,6 +251,21 @@ export class Connection extends Service {
             method: "GET",
             json: true,
             qs: param
+        };
+
+        return this.requestServer(options);
+    }
+
+    deviceUpdate(device) {
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/device/update",
+            method: "POST",
+            json: true,
+            body: device
         };
 
         return this.requestServer(options);

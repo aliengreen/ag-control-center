@@ -41,15 +41,31 @@ export class GeoLocationEdit extends Component {
       }
     }
 
+    let searchElem = this.getElementByClassName('.latlng-field');
+    
+    /** Attach enter key event to the textbox */
+    searchElem.addEventListener('keyup', (e) => {
+      if (e.keyCode == 13) {
+        // Cancel the default action, if needed
+        e.preventDefault();
+        const latlng = this.validateForm();
+        if (latlng) {
+          this.locate(latlng, this.options.zoomLevel);
+        }
+      } else if(e.keyCode == 27) {
+        this.removeModal();
+      }
+    });
+
   }
 
   validateForm() {
     const tmp = this.getValue('user-latitudelongitude');
-    if(!tmp.indexOf(',')) {
+    if (!tmp.indexOf(',')) {
       return null;
     }
     const latlng = tmp.split(',');
-    if(latlng.length != 2) {
+    if (latlng.length != 2) {
       return null;
     }
 

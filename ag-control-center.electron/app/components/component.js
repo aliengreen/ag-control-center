@@ -54,8 +54,15 @@ export class Component {
   translateComponent() {
     const trnElems = this.componentElem.querySelectorAll('[data-trn]')
     trnElems.forEach((elem) => {
-      elem.removeAttribute('data-trn'); /* We don't need enymore translatin attribute */
+      elem.removeAttribute('data-trn'); /* We don't need enymore translation attribute */
       this.translateElement(elem);
+    });
+
+    const trnTitleElems = this.componentElem.querySelectorAll('[data-trn-title]')
+    trnTitleElems.forEach((elem) => {
+      let title = elem.getAttribute('title');
+      elem.setAttribute('title', this.polyglot.t(title.trim()));
+      elem.removeAttribute('data-trn-title'); /* We don't need enymore translation attribute */
     });
   }
 
@@ -154,7 +161,6 @@ export class Component {
           element.addEventListener('click', (e) => {
             let id = element.getAttribute('data-id');
             let name = element.getAttribute('data-bind-clkcb');
-            console.log(this);
             this[name](e, id);
           });
 
