@@ -30,6 +30,7 @@
     "msg.user.warn.emailphonechanged": "You are about to change the Email / Phone field. Please note that this field is used to access a personal account, the user cannot log in with old email / phone credentials.",
     "msg.user.warn.passwordchanged": "You are about to change the Password field. Please note that this field is used to access a personal account, the user cannot log in with old credentials.",
     "msg.user.warn.nodevicelocation": "Device location is not set. Do you want to set new one ?",
+    "msg.user.warn.nouserlocation": "User location is not set. Do you want to set new one ?",
     "msg.device.updated": "Device %{name} has been updated",
     "Short information": "Short information",
     "Search": "Search",

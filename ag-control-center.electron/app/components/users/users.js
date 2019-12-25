@@ -383,7 +383,12 @@ export class Users extends ComponentTable {
       if (meta.geo_location) {
         latlng = [meta.geo_location.lat, meta.geo_location.lng];
         zoomLevel = 18;
+      } else {
+        if (!confirm(this.polyglot.t('msg.user.warn.nouserlocation', { name: meta.name }))) {
+          return; /* Just ignore if user selects NO */
+        }
       }
+
       this.modal = new GeoLocationEdit('modal-placeholder', {
         dataset: this.dataset,
         options: { editable: true, latlng: latlng, zoomLevel: zoomLevel },
