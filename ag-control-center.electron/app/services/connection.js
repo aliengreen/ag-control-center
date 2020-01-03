@@ -101,6 +101,49 @@ export class Connection extends Service {
 
     }
 
+    paymentList(search, offset, limit, order, order_by) {
+
+        var param = {
+            order: order,
+            order_by: order_by,
+            offset: offset,
+            limit: limit,
+            search: search
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/payments",
+            method: "GET",
+            json: true,
+            qs: param
+        };
+
+        return this.requestServer(options);
+
+    }
+
+    getPayment(order_id) {
+
+        var param = {
+            order_id: order_id
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/payment",
+            method: "GET",
+            json: true,
+            qs: param
+        };
+
+        return this.requestServer(options);
+
+    }
 
     userSessions(uuid) {
 

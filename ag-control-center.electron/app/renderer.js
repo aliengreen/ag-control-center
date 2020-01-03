@@ -34,6 +34,7 @@ import { MapJSON } from './services/mapjson'
 import { Connection } from './services/connection'
 import { LoginController } from './components/login/controller'
 import { Users } from './components/users/users'
+import { Payments } from './components/payments/payments'
 import { Wizard } from './components/wizard/wizard'
 import { Snackbar } from './components/snackbar/snackbar'
 import template from './index.html'
@@ -59,8 +60,9 @@ class ViewController {
     this._appInfo = {
       title: 'AG Center',
       version: 0.1,
-      api_url: 'https://admin.aliengreen.ge',
-      app_url: 'https://app.aliengreen.ge',
+      api_url: 'https://admin-dev.aliengreen.ge',
+      app_url: 'https://app-dev.aliengreen.ge',
+      web_url: 'https://aliengreen.ge',
       language: kalng,
       locale: 'ka'
     }
@@ -99,7 +101,7 @@ class ViewController {
         error: event => {
           let response = event.detail;
           if (response.statusCode > 200) {
-            if (response.statusCode === 401) {
+            if (response.statusCode === 401 || response.statusCode === 501) {
               alert(this.polyglot.t('The access token expired'));
               this.connection.setCookie('accessToken', '', -9999999);
               location.reload();
@@ -171,6 +173,16 @@ class ViewController {
           this.wizard.closeModal();
 
           this.users = new Users('container-placeholder', {
+            dataset: dataset,
+            events: {
+
+            }
+          });
+        },
+        paymentList: event => {
+          this.wizard.closeModal();
+
+          this.payments = new Payments('container-placeholder', {
             dataset: dataset,
             events: {
 

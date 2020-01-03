@@ -1,0 +1,30 @@
+@import "../../_variables.scss";
+
+.payment-list {
+  // scroll-behavior: smooth;
+  // scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  height: 50vh;
+
+  div.columns {
+    scroll-snap-align: end;
+    border-bottom: 1px solid rgb(237, 237, 237);
+  }
+
+  .table-row:hover {
+    background-color: whitesmoke;
+  }
+
+  .table-row:hover .action-group {
+    visibility: visible;
+  }
+
+  .table-row .action-group {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: $breakpointMobile) {
+}

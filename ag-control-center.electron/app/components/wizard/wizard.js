@@ -19,6 +19,9 @@ export class Wizard extends Component {
         userList: event => {
           this.triggerEvent('userList', event.detail);
         },
+        paymentList: event => {
+          this.triggerEvent('paymentList', event.detail);
+        },
         closeButton: event => {
           this.triggerEvent('closeButton', event.detail);
         }
