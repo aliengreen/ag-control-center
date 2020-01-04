@@ -1,6 +1,7 @@
 {
     "The access token expired": "The access token expired, You will be redirected to the login screen.",
     "Sign in with credentials": "Sign in with credentials",
+    "OK": "OK",
     "Email": "Email",
     "Phone Number": "Phone Number",
     "Name": "Name",
@@ -36,6 +37,8 @@
     "msg.user.warn.passwordchanged": "You are about to change the Password field. Please note that this field is used to access a personal account, the user cannot log in with old credentials.",
     "msg.user.warn.nodevicelocation": "Device location is not set. Do you want to set new one ?",
     "msg.user.warn.nouserlocation": "User location is not set. Do you want to set new one ?",
+    "msg.user.warn.paymentaccept": "Are you sure you want to accept an payment with order id %{order_id} ?",
+    "msg.user.warn.paymentcancel": "Are you sure you want to cancel an payment with order id %{order_id} ?",
     "msg.device.updated": "Device %{name} has been updated",
     "Short information": "Short information",
     "Search": "Search",
@@ -90,6 +93,7 @@
     "Latitude, Longitude": "Latitude, Longitude",
     "Go": "Go",
     "Add": "Add",
+    "View": "View",
     "Serial number": "Serial number",
     "Copy to Clipboard": "Copy to Clipboard",
     "Show location": "Show location",
@@ -110,5 +114,12 @@
     "text.user.deleteuseranddeletedevices.help": "Be Careful ! The user will be removed from system and all associated data with this user",
     "Copying to clipboard was successful": "Copying to clipboard was successful",
     "Could not copy serial number": "Could not copy serial number",
-    "Copy clipboard not supported by this browser": "Copy clipboard not supported by this browser"
+    "Copy clipboard not supported by this browser": "Copy clipboard not supported by this browser",
+    "msg.payment.accepted.success": "Payment accepted with order id %{order_id}",
+    "msg.payment.accepted.fail": "Payment can't be accepted with order id %{order_id}",
+    "msg.payment.canceled.success": "Payment canceled with order id %{order_id}",
+    "msg.payment.canceled.fail": "Payment can't be canceled with order id %{order_id}",
+    "Accept Payment": "Accept Payment",
+    "Cancel Payment": "Cancel Payment",
+    "Transactions View": "Transactions View"
 }

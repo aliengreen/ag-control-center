@@ -145,6 +145,46 @@ export class Connection extends Service {
 
     }
 
+    paymentAccept(order_id) {
+
+        var param = {
+            order_id: order_id
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/payments_accept",
+            method: "POST",
+            json: true,
+            body: param
+        };
+
+        return this.requestServer(options);
+
+    }
+
+    paymentCancel(order_id) {
+
+        var param = {
+            order_id: order_id
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/payments_stop",
+            method: "POST",
+            json: true,
+            body: param
+        };
+
+        return this.requestServer(options);
+
+    }
+    
     userSessions(uuid) {
 
         var param = {

@@ -1,6 +1,7 @@
 {
     "The access token expired": "სესიის ვადა ამოიწურა, თქვენ გადამისამართდებით ავტორიზაციის გვერდზე.",
     "Sign in with credentials": "სისტემაში ავტორიზაცია",
+    "OK": "თანხმობა",
     "Email": "ელ-ფოსტა",
     "Phone Number": "ტელეფონის ნომერი",
     "Name": "სახელი",
@@ -35,6 +36,8 @@
     "msg.user.warn.passwordchanged": "თქვენ ცვლილება შეგაქვთ მომხმარებლის პაროლის ველში. გაითვალისწინეთ, რომ ეს ველი გამოიყენება მომხმარებლის პირად ანგარიშში შესასვლელად. მომხმარებელი ვერ ისარგებლებს ძველი პაროლით.",
     "msg.user.warn.nodevicelocation": "მოწყობილობის ადგილმდებარეობა არ არის მითითებული. გსურთ შექმნათ ახალი?",
     "msg.user.warn.nouserlocation": "მომხმარებლის ადგილმდებარეობა არ არის მითითებული. გსურთ შექმნათ ახალი?",
+    "msg.user.warn.paymentaccept": "ნამდვილად გსურთ შეკვეთის მიღება ნომრით %{order_id} ?",
+    "msg.user.warn.paymentcancel": "ნამდვილად გსურთ შეკვეთის გაუქმება ნომრით %{order_id} ?",
     "msg.device.updated": "მოწყობილობა %{name} წარმატებით განახლდა",
     "Short information": "მოკლე ინფორმაცია",
     "Search": "ძებნა",
@@ -89,6 +92,7 @@
     "Latitude, Longitude": "გრძედი, განედი",
     "Go": "Go",
     "Add": "დამატება",
+    "View": "ნახვა",
     "Serial number": "სერიული ნომერი",
     "Copy to Clipboard": "ბუფერში კოპირება",
     "Show location": "მანახე ადგილმდებარეობა",
@@ -109,5 +113,12 @@
     "text.user.deleteuseranddeletedevices.help": "ყურადღებით შე ახვარო, მომხმარებელი წაიშლება სისტემიდან და მასთან დაკავშირებული ყველა მონაცემი თან გაყვება უკუნითი უკუნისამდე.",
     "Copying to clipboard was successful": "ბუფერში გადაწერა წარმატებით დასრულდა",
     "Could not copy serial number": "სერიული ნომრის კოპირება ვერ მოხერხდა",
-    "Copy clipboard not supported by this browser": "ბუფერში კოპირების ფუნქცია არ აქვს თქვენს ბროუზერს"
+    "Copy clipboard not supported by this browser": "ბუფერში კოპირების ფუნქცია არ აქვს თქვენს ბროუზერს",
+    "msg.payment.accepted.success": "გადახდა მიღებულია შეკვეთის ნომერით %{order_id}",
+    "msg.payment.accepted.fail": "გადახდა წარუმატებელია შეკვეთის ნომერით %{order_id}",
+    "msg.payment.canceled.success": "გადახდა გაუქმებულია შეკვეთის ნომერით %{order_id}",
+    "msg.payment.canceled.fail": "გადახდის გაუქმების შეცდომა შეკვეთის ნომერით %{order_id}",
+    "Accept Payment": "შეკვეთის მიღება",
+    "Cancel Payment": "შეკვეთის გაუქმება",
+    "Transactions View": "ტრანზაქციების სია"
 }

@@ -2,7 +2,8 @@ import './payments.scss'
 import { ComponentTable } from '../componentTable'
 import View from './payments.html'
 import moment from 'moment'
-import { DetailsPanel } from '../details-panel/details-panel';
+// import { DetailsPanel } from '../details-panel/details-panel';
+import { TransactionsView } from '../modals/transactions_view/transactions_view';
 
 
 /**
@@ -19,9 +20,9 @@ export class Payments extends ComponentTable {
     moment.locale(this.appInfo.locale);
 
     // Initialize Details Panel
-    this.infoComponent = new DetailsPanel('details-panel-placeholder', {
-      dataset: props.dataset
-    });
+    // this.infoComponent = new DetailsPanel('details-panel-placeholder', {
+    //   dataset: props.dataset
+    // });
 
 
   }
@@ -37,7 +38,7 @@ export class Payments extends ComponentTable {
     this.refs['payment-list'].innerHTML = '';
 
     this.connection.paymentList(this.search, (this.paginationCurrentPage - 1) * this.paginationPageSize, this.paginationPageSize, this.order, this.order_by).then((res, statusCode) => {
-      
+
       /* Add paginaiton footer */
       this.addPaginationNumbers(res.total, this.paginationCurrentPage, this.paginationPageSize);
 
@@ -54,26 +55,47 @@ export class Payments extends ComponentTable {
 
       res.rows.forEach((row) => {
 
-        let products = JSON.parse(row.products);
+        // let products = JSON.parse(row.products);
+        const order_transactions = JSON.parse(row.order_transactions);
 
+        let order_badge = 'warning';
+        let order_title = 'unknown';
+
+        let index = order_transactions.length;
+
+        if (index) {
+          const transaction = order_transactions[index - 1];
+          order_title = transaction.status;
+          if (transaction.meta) {
+            if (transaction.meta.result === "ok") {
+              order_badge = 'success';
+            } else if (transaction.meta.result === "failed") {
+              order_badge = 'danger';
+            }
+          }
+        }
+        // console.log(order_transactions);
         // let metaData = JSON.parse(row.meta);
 
         index++;
         let html = `<div class="columns is-marginless table-row" data-id="${row.order_id}" data-bind-clkcb="paymentSelectCallback">
         <div class="column is-3">
-          <a href="#" data-id="${row.order_id}" class="is-size-5" data-bind-clkcb="paymentViewCallback">${row.firstname} ${row.lastname}</a>
+          <a href="#" data-id="${row.order_id}" class="is-size-5" data-bind-clkcb="paymentTransactionsViewCallback">${row.firstname} ${row.lastname}</a>
           <p class="is-size-7">${row.email}</p>
           <p class="is-size-7 has-text-grey">T:${row.phone}</p>
           <p class="is-size-7 has-text-grey" title="Order ID">${row.order_id}</p>
           <p class="is-size-7 has-text-grey" title="Transaction ID">${row.tid}</p>
         </div>
-        <div class="column is-3"><strong>${row.total_amount_gel.toFixed(2)}</strong></div>
+        <div class="column is-3">
+          <p><strong>${row.total_amount_gel.toFixed(2)}</strong></p>
+          <p class="tag is-${order_badge}">${order_title}</p>
+        </div>
         <div class="column is-2"><p class="is-size-7">${moment(row.created).format('D MMM YY h:mm A')}</p></div>`
 
         html += `
         <div class="column is-4">
           <div class="action-group">
-            <button class="button is-rounded is-small" data-id="${row.order_id}" data-bind-clkcb="paymentAcceptCallback" data-trn>Accept</button>
+            <button class="button is-rounded is-small" data-id="${row.order_id}" data-bind-clkcb="paymentViewCallback" data-trn>View</button>
             <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
               <button class="button is-rounded is-small" aria-haspopup="true" aria-controls="dropdown-menu4">
@@ -85,10 +107,15 @@ export class Payments extends ComponentTable {
             </div>
             <div class="dropdown-menu" id="dropdown-menu4" role="menu">
               <div class="dropdown-content">
+                <a href="#" class="dropdown-item" data-id="${row.order_id}" data-bind-clkcb="paymentAcceptCallback" data-trn>
+                Accept Payment
+                </a>
+              </div>
+              <div class="dropdown-content">
                 <a href="#" class="dropdown-item" data-id="${row.order_id}" data-bind-clkcb="paymentCancelCallback" data-trn>
                 Cancel Payment
                 </a>
-              </div>
+            </div>
             </div>
           </div>
           </div>
@@ -129,7 +156,59 @@ export class Payments extends ComponentTable {
       console.log(`Can't get payment information (${statusCode})`);
     });
   }
-  
+
+  paymentAcceptCallback(e, id) {
+
+    if (!confirm(this.polyglot.t('msg.user.warn.paymentaccept', { order_id: id }))) {
+      return; /* Just ignore if user selects NO */
+    }
+
+    this.connection.paymentAccept(id).then((res, statusCode) => {
+      this.dataset.snackbar.show(this.polyglot.t('msg.payment.accepted.success', { order_id: id }), 'success');
+    }).catch((statusCode) => {
+      this.dataset.snackbar.show(this.polyglot.t('msg.payment.accepted.fail', { order_id: id }), 'danger');
+      console.log(`Can't accept payment (${statusCode})`);
+    });
+  }
+
+  paymentCancelCallback(e, id) {
+
+    if (!confirm(this.polyglot.t('msg.user.warn.paymentcancel', { order_id: id }))) {
+      return; /* Just ignore if user selects NO */
+    }
+
+    this.connection.paymentCancel(id).then((res, statusCode) => {
+      this.dataset.snackbar.show(this.polyglot.t('msg.payment.canceled.success', { order_id: id }), 'success');
+    }).catch((statusCode) => {
+      this.dataset.snackbar.show(this.polyglot.t('msg.payment.canceled.fail', { order_id: id }), 'danger');
+      console.log(`Can't cancel payment (${statusCode})`);
+    });
+  }
+
+  paymentTransactionsViewCallback(e, id) {
+
+    if (this.modal) {
+      this.modal = null;
+    }
+
+    this.connection.getPayment(id).then((res, statusCode) => {
+      const payment = res.payment[0];
+      this.modal = new TransactionsView('modal-placeholder', {
+        dataset: this.dataset,
+        data: payment,
+        events: {
+          okButton: event => {
+            this.modal.removeModal();
+          },
+        }
+      });
+
+      this.modal.showModalPage();
+
+    }).catch((statusCode) => {
+      console.log(`Can't getPayment (${statusCode})`);
+    });
+  }
 
   setupOrder(e, id) {
 
