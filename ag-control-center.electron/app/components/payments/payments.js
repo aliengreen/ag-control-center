@@ -164,6 +164,7 @@ export class Payments extends ComponentTable {
     }
 
     this.connection.paymentAccept(id).then((res, statusCode) => {
+      this.reload();
       this.dataset.snackbar.show(this.polyglot.t('msg.payment.accepted.success', { order_id: id }), 'success');
     }).catch((statusCode) => {
       this.dataset.snackbar.show(this.polyglot.t('msg.payment.accepted.fail', { order_id: id }), 'danger');
@@ -178,6 +179,7 @@ export class Payments extends ComponentTable {
     }
 
     this.connection.paymentCancel(id).then((res, statusCode) => {
+      this.reload();
       this.dataset.snackbar.show(this.polyglot.t('msg.payment.canceled.success', { order_id: id }), 'success');
     }).catch((statusCode) => {
       this.dataset.snackbar.show(this.polyglot.t('msg.payment.canceled.fail', { order_id: id }), 'danger');

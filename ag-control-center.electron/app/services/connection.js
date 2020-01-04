@@ -148,7 +148,8 @@ export class Connection extends Service {
     paymentAccept(order_id) {
 
         var param = {
-            order_id: order_id
+            order_id: order_id,
+            send_email: false
         };
 
         let options = {
