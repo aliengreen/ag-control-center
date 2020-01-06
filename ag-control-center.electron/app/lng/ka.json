@@ -93,6 +93,17 @@
     "Go": "Go",
     "Add": "დამატება",
     "View": "ნახვა",
+    "Transaction List": "ტრანზაქციების სია",
+    "Shipping Address": "მიწოდების მისამართი",
+    "Product List": "პროდუქტების სია",
+    "Description": "დასახელება",
+    "Quantity": "რაოდენობა",
+    "Price": "ფასი",
+    "Discount:": "ფასდაკლება:",
+    "Discount Code:": "ფასდაკლების კოდი:",
+    "Shipping:": "მიტანის სერვისი:",
+    "Total:": "სულ:",
+    "Meta": "მეტა",
     "Serial number": "სერიული ნომერი",
     "Copy to Clipboard": "ბუფერში კოპირება",
     "Show location": "მანახე ადგილმდებარეობა",
@@ -120,5 +131,6 @@
     "msg.payment.canceled.fail": "გადახდის გაუქმების შეცდომა შეკვეთის ნომერით %{order_id}",
     "Accept Payment": "შეკვეთის მიღება",
     "Cancel Payment": "შეკვეთის გაუქმება",
-    "Transactions View": "ტრანზაქციების სია"
+    "Transactions View": "ტრანზაქციების სია",
+    "Find a payment - enter email, phone, name": "გადახდის ძებნა - შეიყვანეთ ელ-ფოსტა, ტელეფონი, სახელი"
 }

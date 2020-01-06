@@ -1,27 +1,55 @@
 <div class="modal is-clipped">
-        <div class="modal-background close-button"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <span class="modal-card-title">
-                    <span data-trn>Transactions View</span> -
-                    <span class="subtitle"><strong data-field-name>&nbsp;</strong></span>
-                </span>
-                <button class="delete close-button" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
-                <div class="columns">
-                    <div class="column is-1"><strong>#</strong></div>
-                    <div class="column is-2"><strong>Status</strong></div>
-                    <div class="column is-9"><strong>Meta</strong></div>
+    <div class="modal-background close-button"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <span class="modal-card-title">
+                <span data-trn>Transactions View</span> -
+                <span class="subtitle"><strong data-field-name>&nbsp;</strong></span>
+            </span>
+            <button class="delete close-button" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <strong class="is-size-5" data-trn>Shipping Address</strong>
+            <ul>
+                <li><span data-field-name></span>&nbsp;<span data-field-id></span></li>
+                <li><span data-field-address></span></li>
+                <li><span data-field-city></span></li>
+                <li><span data-field-phone></span></li>
+                <li><span data-field-email></span></li>
+            </ul>
+            <hr>
+            <div class="columns">
+                    <div class="column">
+                        <strong class="is-size-5" data-trn>Product List</strong>
+                    </div>
                 </div>
-                <div ref="transactions-list">
-
+                <div class="columns has-background-light">
+                    <div class="column is-4"><strong data-trn>Description</strong></div>
+                    <div class="column is-4"><strong data-trn>Quantity</strong></div>
+                    <div class="column is-4"><strong data-trn>Price</strong></div>
                 </div>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success is-rounded" data-loading data-click-event="okButton"
-                    data-trn>OK</button>
+                <div ref="product-list">
     
-            </footer>
-        </div>
+                </div>
+
+            <hr>
+            <div class="columns">
+                <div class="column">
+                    <strong class="is-size-5" data-trn>Transaction List</strong>
+                </div>
+            </div>
+            <div class="columns has-background-light">
+                <div class="column is-1"><strong>#</strong></div>
+                <div class="column is-2"><strong data-trn>Status</strong></div>
+                <div class="column is-9"><strong data-trn>Meta</strong></div>
+            </div>
+            <div ref="transactions-list">
+
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success is-rounded" data-loading data-click-event="okButton" data-trn>OK</button>
+
+        </footer>
     </div>
+</div>

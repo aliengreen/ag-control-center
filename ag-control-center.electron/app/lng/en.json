@@ -94,6 +94,17 @@
     "Go": "Go",
     "Add": "Add",
     "View": "View",
+    "Transaction List": "Transaction List",
+    "Shipping Address": "Shipping Address",
+    "Product List": "Product List",
+    "Description": "Description",
+    "Quantity": "Quantity",
+    "Price": "Price",
+    "Discount:": "Discount:",
+    "Discount Code:": "Discount Code:",
+    "Shipping:": "Shipping:",
+    "Total:": "Total:",
+    "Meta": "Meta",
     "Serial number": "Serial number",
     "Copy to Clipboard": "Copy to Clipboard",
     "Show location": "Show location",
@@ -121,5 +132,6 @@
     "msg.payment.canceled.fail": "Payment can't be canceled with order id %{order_id}",
     "Accept Payment": "Accept Payment",
     "Cancel Payment": "Cancel Payment",
-    "Transactions View": "Transactions View"
+    "Transactions View": "Transactions View",
+    "Find a payment - enter email, phone, name": "Find a payment - enter email, phone, name"
 }
