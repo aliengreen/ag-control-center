@@ -38,6 +38,7 @@
     "msg.user.warn.nouserlocation": "მომხმარებლის ადგილმდებარეობა არ არის მითითებული. გსურთ შექმნათ ახალი?",
     "msg.user.warn.paymentaccept": "ნამდვილად გსურთ შეკვეთის მიღება ნომრით %{order_id} ?",
     "msg.user.warn.paymentcancel": "ნამდვილად გსურთ შეკვეთის გაუქმება ნომრით %{order_id} ?",
+    "msg.user.warn.paymentdelivered": "ნამდვილად გსურთ შეკვეთის განახლება სტატუსით 'მიტანილი', შეკვეთის ნომრით %{order_id} ?",
     "msg.device.updated": "მოწყობილობა %{name} წარმატებით განახლდა",
     "Short information": "მოკლე ინფორმაცია",
     "Search": "ძებნა",
@@ -129,8 +130,11 @@
     "msg.payment.accepted.fail": "გადახდა წარუმატებელია შეკვეთის ნომერით %{order_id}",
     "msg.payment.canceled.success": "გადახდა გაუქმებულია შეკვეთის ნომერით %{order_id}",
     "msg.payment.canceled.fail": "გადახდის გაუქმების შეცდომა შეკვეთის ნომერით %{order_id}",
+    "msg.payment.delivered.success": "შეკვეთა მიტანილია შეკვეთის ნომრით %{order_id}",
+    "msg.payment.delivered.fail": "შეცდომა შეკვეთის ნომერით %{order_id}",
     "Accept Payment": "შეკვეთის მიღება",
     "Cancel Payment": "შეკვეთის გაუქმება",
+    "Delivered Payment": "შეკვეთა დასრულებულია (მიტანილია)",
     "Transactions View": "ტრანზაქციების სია",
     "Find a payment - enter email, phone, name": "გადახდის ძებნა - შეიყვანეთ ელ-ფოსტა, ტელეფონი, სახელი"
 }

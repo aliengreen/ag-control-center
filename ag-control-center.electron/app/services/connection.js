@@ -101,14 +101,15 @@ export class Connection extends Service {
 
     }
 
-    paymentList(search, offset, limit, order, order_by) {
+    paymentList(search, status, offset, limit, order, order_by) {
 
         var param = {
             order: order,
             order_by: order_by,
             offset: offset,
             limit: limit,
-            search: search
+            search: search,
+            status: status
         };
 
         let options = {
@@ -186,6 +187,26 @@ export class Connection extends Service {
 
     }
     
+    paymentDelivered(order_id) {
+
+        var param = {
+            order_id: order_id
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/payments_delivered",
+            method: "POST",
+            json: true,
+            body: param
+        };
+
+        return this.requestServer(options);
+
+    }
+
     userSessions(uuid) {
 
         var param = {

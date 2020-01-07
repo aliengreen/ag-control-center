@@ -17,8 +17,14 @@ export class Payments extends ComponentTable {
 
     this.loadData();
 
+    this.filter_status = '';
     moment.locale(this.appInfo.locale);
 
+    this.refs['filter'].addEventListener('change', (e) => {
+      this.filter_status = e.target.value;
+      this.reload();
+      // console.log(e.target.value);
+    });
     // Initialize Details Panel
     // this.infoComponent = new DetailsPanel('details-panel-placeholder', {
     //   dataset: props.dataset
@@ -37,7 +43,7 @@ export class Payments extends ComponentTable {
     /* Clear HTML table */
     this.refs['payment-list'].innerHTML = '';
 
-    this.connection.paymentList(this.search, (this.paginationCurrentPage - 1) * this.paginationPageSize, this.paginationPageSize, this.order, this.order_by).then((res, statusCode) => {
+    this.connection.paymentList(this.search, this.filter_status, (this.paginationCurrentPage - 1) * this.paginationPageSize, this.paginationPageSize, this.order, this.order_by).then((res, statusCode) => {
 
       /* Add paginaiton footer */
       this.addPaginationNumbers(res.total, this.paginationCurrentPage, this.paginationPageSize);
@@ -57,20 +63,23 @@ export class Payments extends ComponentTable {
 
         // let products = JSON.parse(row.products);
         const order_transactions = JSON.parse(row.order_transactions);
-
+        console.log(row);
         let order_badge = 'warning';
         let order_title = 'unknown';
 
-        let index = order_transactions.length;
 
-        if (index) {
-          const transaction = order_transactions[index - 1];
-          order_title = transaction.status;
-          if (transaction.meta) {
-            if (transaction.meta.result === "ok") {
-              order_badge = 'success';
-            } else if (transaction.meta.result === "failed") {
-              order_badge = 'danger';
+        if (order_transactions) {
+          let index = order_transactions.length;
+
+          if (index) {
+            const transaction = order_transactions[index - 1];
+            order_title = transaction.status;
+            if (transaction.meta) {
+              if (transaction.meta.result === "ok") {
+                order_badge = 'success';
+              } else if (transaction.meta.result === "failed") {
+                order_badge = 'danger';
+              }
             }
           }
         }
@@ -114,6 +123,10 @@ export class Payments extends ComponentTable {
               <div class="dropdown-content">
                 <a href="#" class="dropdown-item" data-id="${row.order_id}" data-bind-clkcb="paymentCancelCallback" data-trn>
                 Cancel Payment
+                </a>
+                <div class="dropdown-content">
+                <a href="#" class="dropdown-item" data-id="${row.order_id}" data-bind-clkcb="paymentDeliveredCallback" data-trn>
+                Delivered Payment
                 </a>
             </div>
             </div>
@@ -184,6 +197,21 @@ export class Payments extends ComponentTable {
     }).catch((statusCode) => {
       this.dataset.snackbar.show(this.polyglot.t('msg.payment.canceled.fail', { order_id: id }), 'danger');
       console.log(`Can't cancel payment (${statusCode})`);
+    });
+  }
+
+  paymentDeliveredCallback(e, id) {
+
+    if (!confirm(this.polyglot.t('msg.user.warn.paymentdelivered', { order_id: id }))) {
+      return; /* Just ignore if user selects NO */
+    }
+
+    this.connection.paymentDelivered(id).then((res, statusCode) => {
+      this.reload();
+      this.dataset.snackbar.show(this.polyglot.t('msg.payment.delivered.success', { order_id: id }), 'success');
+    }).catch((statusCode) => {
+      this.dataset.snackbar.show(this.polyglot.t('msg.payment.delivered.fail', { order_id: id }), 'danger');
+      console.log(`Can't update payment (${statusCode})`);
     });
   }
 

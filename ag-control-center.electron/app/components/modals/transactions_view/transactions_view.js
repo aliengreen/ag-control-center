@@ -99,6 +99,11 @@ export class TransactionsView extends Component {
 
     for (let i = 0; i < order_transactions.length; i++) {
       const meta = order_transactions[i].meta;
+
+      let meta_html = '';
+
+
+
       if (meta === null) {
         html += `<div class="columns">
         <div class="column is-1">${i}</div>
@@ -106,19 +111,45 @@ export class TransactionsView extends Component {
         <div class="column is-9"></div>
         </div>`;
       } else {
+
+        if (meta.uuid) {
+          meta_html += `<p class="is-size-7 has-text-grey">UUID: ${meta.uuid}</p>`;
+        }
+
+        if (meta.card_number) {
+          meta_html += `<p class="is-size-7 has-text-grey">Card Number: ${meta.card_number}</p>`;
+        }
+
+        if (meta.rrn) {
+          meta_html += `<p class="is-size-7 has-text-grey">RRN: ${meta.rrn}</p>`;
+        }
+
+        if (meta.result) {
+          meta_html += `<p class="is-size-7 has-text-grey">Result: ${meta.result}</p>`;
+        }
+
+        if (meta.result_code) {
+          meta_html += `<p class="is-size-7 has-text-grey">Result Code: ${meta.result_code}</p>`;
+        }
+
+        if (meta.result_code_desc_display) {
+          meta_html += `<p class="is-size-7 has-text-grey">Display: ${meta.result_code_desc_display}</p>`;
+        }
+
+        if (meta.result_code_desc_en) {
+          meta_html += `<p class="is-size-7 has-text-grey">Desc EN: ${meta.result_code_desc_en}</p>`;
+        }
+
+        if (meta.result_code_desc_ka) {
+          meta_html += `<p class="is-size-7 has-text-grey">Desc KA: ${meta.result_code_desc_ka}</p>`;
+        }
+
+
         html += `<div class="columns">
       <div class="column is-1">${i}</div>
       <div class="column is-2">${order_transactions[i].status}</div>
         <div class="column is-9">
-        <p class="is-size-7 has-text-grey">Card Number: ${meta.card_number}</p>
-        <p class="is-size-7 has-text-grey">RRN: ${meta.rrn}</p>
-        <p class="is-size-7 has-text-grey">Result: ${meta.result}</p>
-        <p class="is-size-7 has-text-grey">Result Code: ${meta.result_code}</p>
-        <p class="is-size-7 has-text-grey">Display: ${meta.result_code_desc_display}</p>
-        <p class="is-size-7 has-text-grey">Desc EN: ${meta.result_code_desc_en}</p>
-        <p class="is-size-7 has-text-grey">Desc KA: ${meta.result_code_desc_ka}</p>
-        
-      
+        ${meta_html}
         </div>
       </div>`;
       }

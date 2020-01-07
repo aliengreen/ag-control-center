@@ -39,6 +39,7 @@
     "msg.user.warn.nouserlocation": "User location is not set. Do you want to set new one ?",
     "msg.user.warn.paymentaccept": "Are you sure you want to accept an payment with order id %{order_id} ?",
     "msg.user.warn.paymentcancel": "Are you sure you want to cancel an payment with order id %{order_id} ?",
+    "msg.user.warn.paymentdelivered": "Are you sure you want to set 'delivered' status for payment with order id %{order_id} ?",
     "msg.device.updated": "Device %{name} has been updated",
     "Short information": "Short information",
     "Search": "Search",
@@ -130,8 +131,11 @@
     "msg.payment.accepted.fail": "Payment can't be accepted with order id %{order_id}",
     "msg.payment.canceled.success": "Payment canceled with order id %{order_id}",
     "msg.payment.canceled.fail": "Payment can't be canceled with order id %{order_id}",
+    "msg.payment.delivered.success": "Order delivered with order id %{order_id}",
+    "msg.payment.delivered.fail": "Order can't be updated with order id %{order_id}",
     "Accept Payment": "Accept Payment",
     "Cancel Payment": "Cancel Payment",
+    "Delivered Payment": "Delivered Payment",
     "Transactions View": "Transactions View",
     "Find a payment - enter email, phone, name": "Find a payment - enter email, phone, name"
 }
