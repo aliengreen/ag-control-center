@@ -207,6 +207,28 @@ export class Connection extends Service {
 
     }
 
+    paymentUpdateStatus(order_id, status, note) {
+
+        var param = {
+            order_id: order_id,
+            status: status,
+            note: note
+        };
+
+        let options = {
+            headers: {
+                'Authorization': "Bearer " + this.accessToken
+            },
+            url: this.host + "/api/payments_status",
+            method: "POST",
+            json: true,
+            body: param
+        };
+
+        return this.requestServer(options);
+
+    }
+
     userSessions(uuid) {
 
         var param = {

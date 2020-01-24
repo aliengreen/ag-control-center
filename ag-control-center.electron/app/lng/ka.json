@@ -9,6 +9,7 @@
     "First Name": "სახელი",
     "Last Name": "გვარი",
     "Action": "ქმედება",
+    "Date": "თარიღი",
     "Devices": "მოწყობილობები",
     "Password": "პაროლი",
     "Authorization": "ავტორიზაცია",
@@ -136,5 +137,7 @@
     "Cancel Payment": "შეკვეთის გაუქმება",
     "Delivered Payment": "შეკვეთა დასრულებულია (მიტანილია)",
     "Transactions View": "ტრანზაქციების სია",
+    "Products View": "პროდუქტების სია",
+    "Say something": "რამე ტექსტი",
     "Find a payment - enter email, phone, name": "გადახდის ძებნა - შეიყვანეთ ელ-ფოსტა, ტელეფონი, სახელი"
 }

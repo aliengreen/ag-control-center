@@ -4,6 +4,7 @@ import View from './payments.html'
 import moment from 'moment'
 // import { DetailsPanel } from '../details-panel/details-panel';
 import { TransactionsView } from '../modals/transactions_view/transactions_view';
+import { ProductsView } from '../modals/products_view/products_view';
 
 
 /**
@@ -83,20 +84,19 @@ export class Payments extends ComponentTable {
             }
           }
         }
-        // console.log(order_transactions);
-        // let metaData = JSON.parse(row.meta);
+
 
         index++;
         let html = `<div class="columns is-marginless table-row" data-id="${row.order_id}" data-bind-clkcb="paymentSelectCallback">
         <div class="column is-3">
-          <a href="#" data-id="${row.order_id}" class="is-size-5" data-bind-clkcb="paymentTransactionsViewCallback">${row.firstname} ${row.lastname}</a>
+          <a href="#" data-id="${row.order_id}" class="is-size-5" data-bind-clkcb="paymentProductsViewCallback">${row.firstname} ${row.lastname}</a>
           <p class="is-size-7">${row.email}</p>
           <p class="is-size-7 has-text-grey">T:${row.phone}</p>
           <p class="is-size-7 has-text-grey" title="Order ID">${row.order_id}</p>
           <p class="is-size-7 has-text-grey" title="Transaction ID">${row.tid}</p>
         </div>
         <div class="column is-3">
-          <p><strong>${row.total_amount_gel.toFixed(2)}</strong></p>
+          <p><a href="#" data-id="${row.order_id}" class="is-size-5" data-bind-clkcb="paymentTransactionsViewCallback"><strong>${row.total_amount_gel.toFixed(2)}</strong></a></p>
           <p class="tag is-${order_badge}">${order_title}</p>
         </div>
         <div class="column is-2"><p class="is-size-7">${moment(row.created).format('D MMM YY h:mm A')}</p></div>`
@@ -212,6 +212,31 @@ export class Payments extends ComponentTable {
     }).catch((statusCode) => {
       this.dataset.snackbar.show(this.polyglot.t('msg.payment.delivered.fail', { order_id: id }), 'danger');
       console.log(`Can't update payment (${statusCode})`);
+    });
+  }
+
+  paymentProductsViewCallback(e, id) {
+
+    if (this.modal) {
+      this.modal = null;
+    }
+
+    this.connection.getPayment(id).then((res, statusCode) => {
+      const payment = res.payment[0];
+      this.modal = new ProductsView('modal-placeholder', {
+        dataset: this.dataset,
+        data: payment,
+        events: {
+          okButton: event => {
+            this.modal.removeModal();
+          },
+        }
+      });
+
+      this.modal.showModalPage();
+
+    }).catch((statusCode) => {
+      console.log(`Can't getPayment (${statusCode})`);
     });
   }
 

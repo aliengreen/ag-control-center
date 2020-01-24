@@ -10,6 +10,7 @@
     "First Name": "First Name",
     "Last Name": "Last Name",
     "Action": "Action",
+    "Date": "Date",
     "Devices": "Devices",
     "Password": "Password",
     "Authorization": "Authorization",
@@ -137,5 +138,7 @@
     "Cancel Payment": "Cancel Payment",
     "Delivered Payment": "Delivered Payment",
     "Transactions View": "Transactions View",
+    "Products View": "Products View",
+    "Say something": "Say something",
     "Find a payment - enter email, phone, name": "Find a payment - enter email, phone, name"
 }

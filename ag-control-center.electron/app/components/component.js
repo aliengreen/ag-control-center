@@ -143,6 +143,7 @@ export class Component {
     const eventElems = this.componentElem.querySelectorAll(`[data-loading]`)
     eventElems.forEach((element) => {
       if (element) {
+        console.log('removeeed');
         element.classList.remove('is-loading');
       }
     });

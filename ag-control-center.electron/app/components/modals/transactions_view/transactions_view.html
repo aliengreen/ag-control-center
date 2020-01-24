@@ -9,47 +9,49 @@
             <button class="delete close-button" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-            <strong class="is-size-5" data-trn>Shipping Address</strong>
-            <ul>
-                <li><span data-field-name></span>&nbsp;<span data-field-id></span></li>
-                <li><span data-field-address></span></li>
-                <li><span data-field-city></span></li>
-                <li><span data-field-phone></span></li>
-                <li><span data-field-email></span></li>
-            </ul>
-            <hr>
-            <div class="columns">
-                    <div class="column">
-                        <strong class="is-size-5" data-trn>Product List</strong>
+            <div class="columns has-background-light">
+                <div class="column">
+                    <div class="field">
+                        <label class="label" data-trn>Status</label>
+                    </div>
+                    <div class="field has-addons">
+                        <p class="control">
+                            <span class="select is-rounded">
+                                <select ref="select-status">
+                                    <option value="delivered">Delivered</option>
+                                    <option value="installed">Installed</option>
+                                    <option value="note">Note</option>
+                                </select>
+                            </span>
+                        </p>
+                        <p class="control is-expanded">
+                            <input class="input is-rounded" type="text" placeholder="Say something" ref="input-note"
+                                data-trn>
+                        </p>
+                        <p class="control">
+                            <a class="button is-success is-rounded" data-loading ref="add-note" data-trn>
+                                Add
+                            </a>
+                        </p>
                     </div>
                 </div>
-                <div class="columns has-background-light">
-                    <div class="column is-4"><strong data-trn>Description</strong></div>
-                    <div class="column is-4"><strong data-trn>Quantity</strong></div>
-                    <div class="column is-4"><strong data-trn>Price</strong></div>
-                </div>
-                <div ref="product-list">
-    
-                </div>
-
-            <hr>
-            <div class="columns">
-                <div class="column">
-                    <strong class="is-size-5" data-trn>Transaction List</strong>
-                </div>
             </div>
+
             <div class="columns has-background-light">
-                <div class="column is-1"><strong>#</strong></div>
-                <div class="column is-2"><strong data-trn>Status</strong></div>
-                <div class="column is-9"><strong data-trn>Meta</strong></div>
+                <!-- <div class="column is-1"><strong>#</strong></div> -->
+                <div class="column is-3"><strong data-trn>Status</strong></div>
+                <div class="column is-5"><strong data-trn>Meta</strong></div>
+                <div class="column is-3"><strong data-trn>Date</strong></div>
             </div>
             <div ref="transactions-list">
 
             </div>
+
+
+
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success is-rounded" data-loading data-click-event="okButton" data-trn>OK</button>
-
+            <button class="button is-warning is-rounded" data-click-event="okButton" data-trn>OK</button>
         </footer>
     </div>
 </div>
