@@ -1,0 +1,9 @@
+@import "../../_variables.scss";
+
+.left-side-bar {
+  margin-top: 20pt;
+  margin-left: 10pt;
+}
+
+@media (max-width: $breakpointMobile) {
+}

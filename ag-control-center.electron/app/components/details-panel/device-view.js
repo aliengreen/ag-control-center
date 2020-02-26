@@ -43,7 +43,7 @@ export class DeviceView extends Component {
           .locale(this.appInfo.locale).fromNow() + ', ' + moment(device.data.roomsensors[0].last_seen, 'X').utcOffset(parseFloat(userMeta.preferred_timezone) * 60).format('D MMM YY h:mm A');
 
         attributes.registers.room_sensor.last_seen = parseInt(device.data.roomsensors[0].last_seen);
-        attributes.diagnostics = device.data.diagnostics;
+        attributes.registers.room_sensor.diagnostics = device.data.diagnostics;
 
       } else if (service == 'thermostat') {
         attributes.registers.thermostat = device.data.boiler;
@@ -51,14 +51,14 @@ export class DeviceView extends Component {
           .utcOffset(parseFloat(userMeta.preferred_timezone) * 60)
           .locale(this.appInfo.locale).fromNow() + ', ' + moment(device.data.boiler.last_seen, 'X').utcOffset(parseFloat(userMeta.preferred_timezone) * 60).format('D MMM YY h:mm A');
         attributes.registers.thermostat.last_seen = parseInt(device.data.boiler.last_seen);
-        attributes.diagnostics = device.data.diagnostics;
+        attributes.registers.thermostat.diagnostics = device.data.diagnostics;
       } else if (service == 'door_lock') {
-        attributes.registers.door_lock = device.data.door_lock;
+        attributes.registers.door_lock = device.data.door_lock.attributes;
         attributes.registers.door_lock.last_seen_text = moment(device.data.door_lock.rtc.unix_time, 'X')
           .utcOffset(parseFloat(userMeta.preferred_timezone) * 60)
           .locale(this.appInfo.locale).fromNow() + ', ' + moment(device.data.door_lock.rtc.unix_time, 'X').utcOffset(parseFloat(userMeta.preferred_timezone) * 60).format('D MMM YY h:mm A');
           attributes.registers.door_lock.last_seen = parseInt(device.data.door_lock.rtc.unix_time);
-          attributes.diagnostics = device.data.door_lock.attributes.diagnostics;
+          attributes.registers.door_lock.diagnostics = device.data.door_lock.attributes.diagnostics;
       } else if (service == 'water_tank') {
         console.error(`Unknown service ${service}`);
       } else {
@@ -129,6 +129,7 @@ export class DeviceView extends Component {
         let list = '';
         for (var att_name in service) {
           let att = service[att_name];
+          console.log(att_name,att);
           list += `<li class="is-size-7 is-family-code">${att_name}: ${att.toString()}</li>`;
         }
         list += `<li>&nbsp;</li>`;

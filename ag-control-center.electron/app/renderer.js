@@ -32,6 +32,7 @@ import './main.scss';
 import { Header } from './components/header/header'
 import { MapJSON } from './services/mapjson'
 import { Connection } from './services/connection'
+import { LeftSidebar } from './components/left/left'
 import { LoginController } from './components/login/controller'
 import { Users } from './components/users/users'
 import { Payments } from './components/payments/payments'
@@ -166,12 +167,39 @@ class ViewController {
   }
 
   createWizard(dataset) {
+
+    this.leftSidebar = new LeftSidebar('left-placeholder', {
+      dataset: dataset,
+      events: {
+        userList: event => {
+          this.leftSidebar.setActive('userList');
+          this.users = null;
+          this.users = new Users('container-placeholder', {
+            dataset: dataset,
+            events: {
+
+            }
+          });
+        },
+        paymentsList: event => {
+          this.leftSidebar.setActive('paymentsList');
+          this.payments = null;
+          this.payments = new Payments('container-placeholder', {
+            dataset: dataset,
+            events: {
+
+            }
+          });
+        }
+      }
+    });
+
     this.wizard = new Wizard('container-placeholder', {
       dataset: dataset,
       events: {
         userList: event => {
           this.wizard.closeModal();
-
+          this.leftSidebar.setActive('userList');
           this.users = new Users('container-placeholder', {
             dataset: dataset,
             events: {
@@ -181,7 +209,7 @@ class ViewController {
         },
         paymentList: event => {
           this.wizard.closeModal();
-
+          this.leftSidebar.setActive('paymentsList');
           this.payments = new Payments('container-placeholder', {
             dataset: dataset,
             events: {
