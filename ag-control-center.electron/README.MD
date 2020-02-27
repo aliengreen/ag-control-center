@@ -15,8 +15,8 @@ New icns file will be generated in `logo` folder with file name `icon.icns`.
 If you change icon frequently, you need to clean Finder/macOS icon cache for the target application.
 First close all Finder window and type command below in terminal window:
 
-    touch out/ag-control-center-darwin-x64/ag-control-center.app
-    touch out/ag-control-center-darwin-x64/ag-control-center.app/Contents/Info.plist
+    touch out/AG\ Control\ Center-darwin-x64/AG\ Control\ Center.app/
+    touch out/AG\ Control\ Center-darwin-x64/AG\ Control\ Center.app/Contents/Info.plist
 
 ### Build macOS distribution
 

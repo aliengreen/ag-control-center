@@ -14,12 +14,30 @@
                 <h2 class="title">მენიუ</h2>
             </p> -->
 
-        <p class="menu-label">
-            <p class="subtitle" data-trn>Category List</p>
-        </p>
+        <div class="menu-label is-flex">
+            <!-- <p class="subtitle" data-trn>Category List</p> -->
+            <figure class="image is-64x64">
+                <img src="AG.png">
+            </figure>
+        </div>
         <ul class="menu-list">
-            <li><a href="#" data-click-event="userList" ref="userList" data-trn>User List</a></li>
-            <li><a href="#" data-click-event="paymentsList" ref="paymentsList" data-trn>Payments List</a></li>
+            <li>
+
+                <a href="#" data-click-event="userList" ref="userList">
+                    <span class="icon">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </span>
+                    <span data-trn>User List</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-click-event="paymentsList" ref="paymentsList">
+                    <span class="icon">
+                        <i class="fa fa-bitcoin" aria-hidden="true"></i>
+                    </span>
+                    <span data-trn>Payments List</span>
+                </a>
+            </li>
         </ul>
     </aside>
 </div>

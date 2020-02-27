@@ -1,9 +1,49 @@
 @import "../../_variables.scss";
 
 .left-side-bar {
-  margin-top: 20pt;
-  margin-left: 10pt;
+  // margin-top: 20pt;
+  // margin-left: 0pt;
+  border-right: 1px solid #cccccc;
+  height: 100vh;
+  background-color: #e5e4e6;
+  
+  .menu {
+    padding-top: 40pt;
+  }
+
+  .menu-label {
+    justify-content: center;
+    padding-bottom: 20pt;
+  }
+
+  .menu-list {
+
+    a {
+      color: #333;
+      padding-left: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+
+      .icon {
+        color: #505050;
+        font-size: 1.6rem;
+        padding-right: 10pt;
+      }
+    }
+
+    a.is-active {
+      color: #333;
+      background-color: #abbde0;
+    }
+  }
 }
 
 @media (max-width: $breakpointMobile) {
+  .left-side-bar {
+    // margin-top: 20pt;
+    // margin-left: 0pt;
+    border-right: 1px solid #cccccc;
+    height: 100%;
+    background-color: #e5e4e6;
+  }
 }
