@@ -68,6 +68,8 @@ class ViewController {
       locale: 'ka'
     }
 
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
     this.polyglot = new Polyglot({ phrases: this._appInfo.language });
 
     this._isload = false;

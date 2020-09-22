@@ -1,7 +1,7 @@
 {
   "name": "ag-control-center",
-  "productName": "ag-control-center",
-  "version": "1.0.2",
+  "productName": "AG Control Center",
+  "version": "1.1.0",
   "description": "An Interactive Control Center of Alien Green IoT system. This is a admin panel for AG users and devices.",
   "main": ".webpack/main",
   "scripts": {
@@ -31,6 +31,24 @@
   "license": "MIT",
   "config": {
     "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronWinstallerConfig": {
+        "name": "Zhayamak V 1.0.0 ",
+        "loadingGif": "./src/loading.gif",
+        "certificateFile": "./cert.pfx",
+        "setupIcon": "./src/favicon.ico"
+      },
       "packagerConfig": {
         "icon": "app/assets/icons/mac/icon.icns",
         "osxSign": {
@@ -47,7 +65,7 @@
         {
           "name": "@electron-forge/maker-zip",
           "platforms": [
-            "darwin"
+            "darwin", "win32"
           ]
         },
         {
@@ -90,7 +108,7 @@
               "name": "ag-control-center"
             },
             "prerelease": false,
-            "authToken": "***"
+            "authToken": "c4b4d74725bd375b9468ec28ee6c3179cf9bece5"
           }
         }
       ]
